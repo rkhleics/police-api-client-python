@@ -1,4 +1,5 @@
-from .resource import Resource, api_request
+from .resource import Resource, api_request, APIError
+from .forces import Force
 
 
 class Neighbourhood(Resource):
@@ -9,7 +10,7 @@ class Neighbourhood(Resource):
     _officers = None
     _events = None
     fields = ['contact_details', 'name', 'links', 'description', 'url_force',
-              'population', 'centre']
+              'population', 'centre', 'locations']
 
     class Officer(object):
         """
@@ -36,9 +37,12 @@ class Neighbourhood(Resource):
             for field in self.fields:
                 setattr(self, field, data.get(field))
 
-    def __init__(self, force, id):
+    def __init__(self, force, id, name=None):
         self.force = force
         self.id = id
+        if name:
+            self.name = name
+            self.fields = list(self.fields).remove('name')
 
     def __repr__(self):
         return '[%s] %s' % (self.force, self.id)
@@ -82,8 +86,9 @@ def get_neighbourhoods(force):
 
     neighbourhoods = []
     for n in api_request('%s/neighbourhoods' % force.slug):
-        neighbourhoods.append(Neighbourhood(force=force, id=n['id']))
-    return neighbourhoods
+        neighbourhoods.append(
+            Neighbourhood(force=force, id=n['id'], name=n['name']))
+    return sorted(neighbourhoods, key=lambda n: n.name)
 
 
 def locate_neighbourhood(lat, lng):
