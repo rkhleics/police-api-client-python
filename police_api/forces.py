@@ -20,6 +20,7 @@ class Force(Resource):
 
     @property
     def neighbourhoods(self):
+        from .neighbourhoods import get_neighbourhoods
         if self._neighbourhoods is None:
             self._neighbourhoods = get_neighbourhoods(self)
         return self._neighbourhoods
