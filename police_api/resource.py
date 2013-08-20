@@ -37,4 +37,4 @@ class Resource(object):
     def _hydrate(self):
         for field in self.fields:
             hydrate_field = getattr(self, '_hydrate_%s' % field, lambda x: x)
-            setattr(self, field, hydrate_field(self._response_data[field]))
+            setattr(self, field, hydrate_field(self._response_data.get(field)))
