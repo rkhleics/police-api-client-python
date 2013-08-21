@@ -33,7 +33,7 @@ class BaseService(object):
         else:
             request_kwargs['data'] = kwargs
         url = self.config['base_url'] + method
-        print('%s %s' % (verb, url))
+        logger.debug('%s %s' % (verb, url))
         r = self.requester.request(verb, url, **request_kwargs)
         if r.status_code != 200:
             with open('/tmp/resp.html', 'w') as f:
