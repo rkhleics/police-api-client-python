@@ -9,6 +9,7 @@ class Neighbourhood(Resource):
     _officers = None
     _events = None
     _boundary = None
+    _crimes = None
     fields = ['contact_details', 'name', 'links', 'description', 'url_force',
               'population', 'centre', 'locations']
 
@@ -65,6 +66,9 @@ class Neighbourhood(Resource):
         points = self.api.service.request('GET', method)
         return [(p['latitude'], p['longitude']) for p in points]
 
+    def _get_crimes(self):
+        return self.api.get_crimes_area(self.boundary)
+
     @property
     def officers(self):
         if self._officers is None:
@@ -82,3 +86,9 @@ class Neighbourhood(Resource):
         if self._boundary is None:
             self._boundary = self._get_boundary()
         return self._boundary
+
+    @property
+    def crimes(self):
+        if self._crimes is None:
+            self._crimes = self._get_crimes()
+        return self._crimes
