@@ -1,4 +1,4 @@
-from .resource import Resource, api_request
+from .resource import Resource
 
 
 class Force(Resource):
@@ -9,25 +9,14 @@ class Force(Resource):
     _neighbourhoods = None
     fields = ['description', 'telephone', 'name', 'engagement_methods']
 
-    def __init__(self, slug):
-        self.slug = slug
-
-    def __repr__(self):
-        return self.slug
+    def __str__(self):
+        return '<Force> %s' % self.slug
 
     def _get_api_method(self):
         return 'forces/%s' % self.slug
 
     @property
     def neighbourhoods(self):
-        from .neighbourhoods import get_neighbourhoods
         if self._neighbourhoods is None:
-            self._neighbourhoods = get_neighbourhoods(self)
+            self._neighbourhoods = self.api.get_neighbourhoods(self)
         return self._neighbourhoods
-
-
-def get_forces():
-    forces = []
-    for f in api_request('forces'):
-        forces.append(Force(slug=f['id']))
-    return forces

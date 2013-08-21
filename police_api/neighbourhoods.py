@@ -1,5 +1,4 @@
-from .resource import Resource, api_request, APIError
-from .forces import Force
+from .resource import Resource, SimpleResource
 
 
 class Neighbourhood(Resource):
@@ -9,63 +8,62 @@ class Neighbourhood(Resource):
     force = None
     _officers = None
     _events = None
+    _boundary = None
     fields = ['contact_details', 'name', 'links', 'description', 'url_force',
               'population', 'centre', 'locations']
 
-    class Officer(object):
+    class Officer(SimpleResource):
         """
         A police officer.
         """
-        neighbourhood = None
-        fields = ['name', 'rank', 'contact_details', 'bio']
+        fields = ['neighbourhood', 'name', 'rank', 'contact_details', 'bio']
 
-        def __init__(self, neighbourhood, data={}):
-            self.neighbourhood = neighbourhood
-            for field in self.fields:
-                setattr(self, field, data.get(field))
+        def __str__(self):
+            return '<Neighbourhood.Officer> %s' % self.name
 
-    class Event(object):
+    class Event(SimpleResource):
         """
         A neighbourhood event.
         """
-        neighbourhood = None
-        fields = ['title', 'type', 'description', 'contact_details',
-                  'start_date', 'address']
+        fields = ['neighbourhood', 'title', 'type', 'description',
+                  'contact_details', 'start_date', 'address']
 
-        def __init__(self, neighbourhood, data={}):
-            self.neighbourhood = neighbourhood
-            for field in self.fields:
-                setattr(self, field, data.get(field))
+        def __str__(self):
+            return '<Neighbourhood.Event> %s' % self.title
 
-    def __init__(self, force, id, name=None):
-        self.force = force
-        self.id = id
-        if name:
-            self.name = name
-            self.fields = list(self.fields).remove('name')
-
-    def __repr__(self):
-        return '[%s] %s' % (self.force, self.id)
+    def __str__(self):
+        return '<Neighbourhood> %s' % self.id
 
     def _get_api_method(self):
         return '%s/%s' % (self.force.slug, self.id)
 
     def _hydrate_population(self, data):
-        return int(data)
+        return int(data) if data is not None else None
 
     def _get_officers(self):
         officers = []
         method = '%s/%s/people' % (self.force.slug, self.id)
-        for o in api_request(method):
-            officers.append(self.Officer(neighbourhood=self, data=o))
+        for o in self.api.service.request('GET', method):
+            o.update({
+                'neighbourhood': self,
+            })
+            officers.append(self.Officer(self.api, data=o))
         return officers
 
     def _get_events(self):
         events = []
         method = '%s/%s/events' % (self.force.slug, self.id)
-        for e in api_request(method):
-            events.append(self.Event(neighbourhood=self, data=e))
+        for e in self.api.service.request('GET', method):
+            e.update({
+                'neighbourhood': self,
+            })
+            events.append(self.Event(self.api, data=e))
         return events
+
+    def _get_boundary(self):
+        method = '%s/%s/boundary' % (self.force.slug, self.id)
+        points = self.api.service.request('GET', method)
+        return [(p['latitude'], p['longitude']) for p in points]
 
     @property
     def officers(self):
@@ -79,22 +77,8 @@ class Neighbourhood(Resource):
             self._events = self._get_events()
         return self._events
 
-
-def get_neighbourhoods(force):
-    if not isinstance(force, Force):
-        force = Force(force)
-
-    neighbourhoods = []
-    for n in api_request('%s/neighbourhoods' % force.slug):
-        neighbourhoods.append(
-            Neighbourhood(force=force, id=n['id'], name=n['name']))
-    return sorted(neighbourhoods, key=lambda n: n.name)
-
-
-def locate_neighbourhood(lat, lng):
-    method = 'locate-neighbourhood?q=%s,%s' % (lat, lng)
-    try:
-        result = api_request(method)
-        return Neighbourhood(Force(result['force']), result['neighbourhood'])
-    except APIError:
-        pass
+    @property
+    def boundary(self):
+        if self._boundary is None:
+            self._boundary = self._get_boundary()
+        return self._boundary

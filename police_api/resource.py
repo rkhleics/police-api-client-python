@@ -1,23 +1,34 @@
-import requests
+class HydrationMixin(object):
 
-API_URL = 'http://data.police.uk/api/'
-
-
-class APIError(Exception):
-    pass
-
-
-def api_request(method):
-    r = requests.get(API_URL + method)
-    if r.status_code != 200:
-        raise APIError(r.status_code)
-    return r.json()
+    def _hydrate(self, data):
+        for field in self.fields:
+            hydrate_field = getattr(self, '_hydrate_%s' % field, lambda x: x)
+            setattr(self, field, hydrate_field(data.get(field)))
 
 
-class Resource(object):
+class SimpleResource(HydrationMixin):
+
+    def __init__(self, api, data={}):
+        self.api = api
+        if data:
+            self._hydrate(data)
+
+    def __repr__(self):
+        return self.__str__()
+
+
+class Resource(SimpleResource, HydrationMixin):
     _requested = False
     api_method = None
     fields = []
+
+    def __init__(self, api, **attrs):
+        super(Resource, self).__init__(api)
+        for key, val in attrs.items():
+            setattr(self, key, val)
+            if key in self.fields:
+                self.fields = list(self.fields)
+                self.fields.remove(key)
 
     def __getattr__(self, attr):
         if not self._requested and attr in self.fields:
@@ -25,16 +36,12 @@ class Resource(object):
         return self.__getattribute__(attr)
 
     def _make_api_request(self):
-        self._response_data = api_request(self._get_api_method())
-        self._hydrate()
+        self._response_data = self.api.service.request(
+            'GET', self._get_api_method())
+        self._hydrate(self._response_data)
         self._requested = True
 
     def _get_api_method(self):
         if self.api_method is None:
             raise RuntimeError('You must set the api_method attribute')
         return self.api_method
-
-    def _hydrate(self):
-        for field in self.fields:
-            hydrate_field = getattr(self, '_hydrate_%s' % field, lambda x: x)
-            setattr(self, field, hydrate_field(self._response_data.get(field)))
