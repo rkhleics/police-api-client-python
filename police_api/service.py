@@ -36,7 +36,5 @@ class BaseService(object):
         logger.debug('%s %s' % (verb, url))
         r = self.requester.request(verb, url, **request_kwargs)
         if r.status_code != 200:
-            with open('/tmp/resp.html', 'w') as f:
-                f.write(r.content)
             raise APIError(r.status_code)
         return r.json()
