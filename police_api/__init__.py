@@ -53,7 +53,8 @@ class PoliceAPI(object):
         return self.service.request('GET', 'crime-last-updated')['date']
 
     def _populate_crime_categories(self):
-        for c in self.service.request('GET', 'crime-categories'):
+        response = self.service.request('GET', 'crime-categories')
+        for c in filter(lambda x: x['url'] != 'all-crime', response):
             self.crime_categories[c['url']] = CrimeCategory(self, data=c)
 
     def _get_crime_categories(self):
