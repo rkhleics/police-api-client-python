@@ -64,7 +64,7 @@ class Neighbourhood(Resource):
     def _get_boundary(self):
         method = '%s/%s/boundary' % (self.force.slug, self.id)
         points = self.api.service.request('GET', method)
-        return [(p['latitude'], p['longitude']) for p in points]
+        return [(float(p['latitude']), float(p['longitude'])) for p in points]
 
     def _get_crimes(self):
         return self.api.get_crimes_area(self.boundary)
