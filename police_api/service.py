@@ -28,7 +28,7 @@ class BaseService(object):
     def request(self, verb, method, **kwargs):
         verb = verb.upper()
         request_kwargs = {}
-        if method == 'GET':
+        if verb == 'GET':
             request_kwargs['params'] = kwargs
         else:
             request_kwargs['data'] = kwargs
