@@ -39,7 +39,7 @@ class Crime(SimpleResource):
     """
     _outcomes = None
     fields = ['category', 'persistent_id', 'location', 'location_type',
-              'location_subtype', 'id', 'context', 'month']
+              'location_subtype', 'id', 'context', 'month', 'outcome_status']
 
     class Outcome(SimpleResource):
         """
@@ -49,7 +49,11 @@ class Crime(SimpleResource):
         fields = ['crime', 'category', 'date']
 
         def _hydrate_category(self, data):
-            return OutcomeCategory(data)
+            if not isinstance(data, dict):
+                data = {
+                    'name': data,
+                }
+            return OutcomeCategory(self.api, data)
 
         def __str__(self):
             return '<Crime.Outcome> %s' % self.category.name
@@ -61,7 +65,7 @@ class Crime(SimpleResource):
             o.update({
                 'crime': self,
             })
-            outcomes.append(self.Outcome(crime=self, data=o))
+            outcomes.append(self.Outcome(self.api, o))
         return outcomes
 
     @property
@@ -75,6 +79,13 @@ class Crime(SimpleResource):
 
     def _hydrate_category(self, url):
         return self.api.get_crime_category(url)
+
+    def _hydrate_outcome_status(self, data):
+        if data:
+            data.update({
+                'crime': self,
+            })
+            return self.Outcome(self.api, data)
 
     def __str__(self):
         return '<Crime> %s' % self.id

@@ -93,3 +93,14 @@ class PoliceAPI(object):
                                       **kwargs):
             crimes.append(Crime(self, data=c))
         return crimes
+
+    def get_crimes_location(self, location_id, date=None):
+        kwargs = {
+            'location_id': location_id,
+        }
+        crimes = []
+        if date is not None:
+            kwargs['date'] = date
+        for c in self.service.request('GET', 'crimes-at-location', **kwargs):
+            crimes.append(Crime(self, data=c))
+        return crimes
