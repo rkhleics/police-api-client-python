@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from .resource import SimpleResource
 
 
@@ -55,6 +57,9 @@ class Crime(SimpleResource):
                 }
             return OutcomeCategory(self.api, data)
 
+        def _hydrate_date(self, date):
+            return datetime.strptime(date, '%Y-%m').date()
+
         def __str__(self):
             return '<Crime.Outcome> %s' % self.category.name
 
@@ -73,6 +78,9 @@ class Crime(SimpleResource):
         if self._outcomes is None:
             self._outcomes = self._get_outcomes()
         return self._outcomes
+
+    def _hydrate_month(self, date):
+        return datetime.strptime(date, '%Y-%m').date()
 
     def _hydrate_location(self, data):
         return Location(self.api, data=data)
