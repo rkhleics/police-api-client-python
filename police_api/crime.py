@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from .resource import SimpleResource
 
 
@@ -40,8 +38,8 @@ class Crime(SimpleResource):
     A crime.
     """
     _outcomes = None
-    fields = ['category', 'persistent_id', 'location', 'location_type',
-              'location_subtype', 'id', 'context', 'month', 'outcome_status']
+    fields = ['month', 'category', 'id', 'persistent_id', 'location',
+              'location_type', 'location_subtype', 'context', 'outcome_status']
 
     class Outcome(SimpleResource):
         """
@@ -56,9 +54,6 @@ class Crime(SimpleResource):
                     'name': data,
                 }
             return OutcomeCategory(self.api, data)
-
-        def _hydrate_date(self, date):
-            return datetime.strptime(date, '%Y-%m').date()
 
         def __str__(self):
             return '<Crime.Outcome> %s' % self.category.name
@@ -79,14 +74,11 @@ class Crime(SimpleResource):
             self._outcomes = self._get_outcomes()
         return self._outcomes
 
-    def _hydrate_month(self, date):
-        return datetime.strptime(date, '%Y-%m').date()
-
     def _hydrate_location(self, data):
         return Location(self.api, data=data)
 
     def _hydrate_category(self, url):
-        return self.api.get_crime_category(url)
+        return self.api.get_crime_category(url, date=self.month)
 
     def _hydrate_outcome_status(self, data):
         if data:
