@@ -50,24 +50,25 @@ class PoliceAPI(object):
         return [d['date'] for d in response]
 
     def get_latest_date(self):
-        return self.service.request('GET', 'crime-last-updated')['date']
+        return self.get_dates()[0]
 
-    def _populate_crime_categories(self):
-        response = self.service.request('GET', 'crime-categories')
+    def _populate_crime_categories(self, date=None):
+        response = self.service.request('GET', 'crime-categories', date=date)
+        self.crime_categories[date] = {}
         for c in filter(lambda x: x['url'] != 'all-crime', response):
-            self.crime_categories[c['url']] = CrimeCategory(self, data=c)
+            self.crime_categories[date][c['url']] = CrimeCategory(self, data=c)
 
-    def _get_crime_categories(self):
-        if not self.crime_categories:
-            self._populate_crime_categories()
-        return self.crime_categories
+    def _get_crime_categories(self, date=None):
+        if date not in self.crime_categories:
+            self._populate_crime_categories(date=date)
+        return self.crime_categories[date]
 
-    def get_crime_categories(self):
-        return sorted(self._get_crime_categories().values(),
+    def get_crime_categories(self, date=None):
+        return sorted(self._get_crime_categories(date=date).values(),
                       key=lambda c: c.name)
 
-    def get_crime_category(self, url):
-        return self._get_crime_categories()[url]
+    def get_crime_category(self, url, date=None):
+        return self._get_crime_categories(date=date)[url]
 
     def get_crime(self, persistent_id):
         method = 'outcomes-for-crime/%s' % persistent_id
@@ -81,7 +82,10 @@ class PoliceAPI(object):
             crime._outcomes.append(crime.Outcome(self, o))
         return crime
 
-    def get_crimes_point(self, lat, lng, date=None):
+    def get_crimes_point(self, lat, lng, date=None, category='all-crime'):
+        if isinstance(category, CrimeCategory):
+            category = category.url
+        method = 'crimes-street/%s' % category
         kwargs = {
             'lat': lat,
             'lng': lng,
@@ -89,20 +93,21 @@ class PoliceAPI(object):
         crimes = []
         if date is not None:
             kwargs['date'] = date
-        for c in self.service.request('GET', 'crimes-street/all-crime',
-                                      **kwargs):
+        for c in self.service.request('GET', method, **kwargs):
             crimes.append(Crime(self, data=c))
         return crimes
 
-    def get_crimes_area(self, points, date=None):
+    def get_crimes_area(self, points, date=None, category='all-crime'):
+        if isinstance(category, CrimeCategory):
+            category = category.url
+        method = 'crimes-street/%s' % category
         kwargs = {
             'poly': encode_polygon(points),
         }
         crimes = []
         if date is not None:
             kwargs['date'] = date
-        for c in self.service.request('POST', 'crimes-street/all-crime',
-                                      **kwargs):
+        for c in self.service.request('POST', method, **kwargs):
             crimes.append(Crime(self, data=c))
         return crimes
 
