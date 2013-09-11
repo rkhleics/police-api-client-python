@@ -52,6 +52,10 @@ class PoliceAPI(object):
     def get_latest_date(self):
         return self.get_dates()[0]
 
+    def get_last_updated(self):
+        response = self.service.request('GET', 'crime-last-updated')
+        return response['date']
+
     def _populate_crime_categories(self, date=None):
         response = self.service.request('GET', 'crime-categories', date=date)
         self.crime_categories[date] = {}
