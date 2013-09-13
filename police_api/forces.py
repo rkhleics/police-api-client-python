@@ -10,7 +10,7 @@ class Force(Resource):
     fields = ['description', 'telephone', 'name', 'engagement_methods']
 
     def __str__(self):
-        return '<Force> %s' % self.slug
+        return '<Force> %s' % self.name
 
     def _get_api_method(self):
         return 'forces/%s' % self.slug

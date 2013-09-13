@@ -14,7 +14,7 @@ class PoliceAPI(object):
     def get_forces(self):
         forces = []
         for f in self.service.request('GET', 'forces'):
-            forces.append(Force(self, slug=f['id']))
+            forces.append(Force(self, slug=f['id'], name=f['name']))
         return forces
 
     def get_force(self, slug):
