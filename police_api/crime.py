@@ -87,6 +87,13 @@ class Crime(SimpleResource):
             })
             return self.Outcome(self.api, data)
 
+    def _hydrate(self, data):
+        data['location'].update({
+            'type': data['location_type'],
+            'subtype': data['location_subtype'],
+        })
+        return super(Crime, self)._hydrate(data)
+
     def __str__(self):
         return '<Crime> %s' % self.id
 
@@ -95,7 +102,7 @@ class Location(SimpleResource):
     """
     An anonymised location.
     """
-    fields = ['latitude', 'longitude', 'street']
+    fields = ['latitude', 'longitude', 'street', 'type', 'subtype']
 
     def __init__(self, *args, **kwargs):
         super(Location, self).__init__(*args, **kwargs)
@@ -103,6 +110,9 @@ class Location(SimpleResource):
         # the 'street' dictionary contains the location's id and name
         self.id = self.street['id']
         self.name = self.street['name']
+
+    def is_btp(self):
+        return self.type == 'BTP'
 
     def __str__(self):
         return '<Location> %s' % self.id
