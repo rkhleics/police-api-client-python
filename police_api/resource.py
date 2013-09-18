@@ -22,13 +22,15 @@ class Resource(SimpleResource, HydrationMixin):
     api_method = None
     fields = []
 
-    def __init__(self, api, **attrs):
+    def __init__(self, api, preload=False, **attrs):
         super(Resource, self).__init__(api)
         for key, val in attrs.items():
             setattr(self, key, val)
             if key in self.fields:
                 self.fields = list(self.fields)
                 self.fields.remove(key)
+        if preload:
+            self._make_api_request()
 
     def __getattr__(self, attr):
         if not self._requested and attr in self.fields:

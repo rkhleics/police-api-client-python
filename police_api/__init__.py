@@ -17,8 +17,8 @@ class PoliceAPI(object):
             forces.append(Force(self, slug=f['id'], name=f['name']))
         return forces
 
-    def get_force(self, slug):
-        return Force(self, slug=slug)
+    def get_force(self, slug, **attrs):
+        return Force(self, slug=slug, **attrs)
 
     def get_neighbourhoods(self, force):
         if not isinstance(force, Force):
@@ -30,11 +30,11 @@ class PoliceAPI(object):
                 Neighbourhood(self, force=force, id=n['id'], name=n['name']))
         return sorted(neighbourhoods, key=lambda n: n.name)
 
-    def get_neighbourhood(self, force, id):
+    def get_neighbourhood(self, force, id, **attrs):
         if not isinstance(force, Force):
-            force = Force(self, slug=force)
+            force = Force(self, slug=force, **attrs)
 
-        return Neighbourhood(self, force=force, id=id)
+        return Neighbourhood(self, force=force, id=id, **attrs)
 
     def locate_neighbourhood(self, lat, lng):
         method = 'locate-neighbourhood?q=%s,%s' % (lat, lng)
