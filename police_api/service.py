@@ -25,6 +25,12 @@ class BaseService(object):
         if username and password:
             self.requester.auth = (username, password)
 
+    def raise_for_status(self, request):
+        try:
+            request.raise_for_status()
+        except requests.models.HTTPError as e:
+            raise APIError(e)
+
     def request(self, verb, method, **kwargs):
         verb = verb.upper()
         request_kwargs = {}
@@ -35,6 +41,5 @@ class BaseService(object):
         url = self.config['base_url'] + method
         logger.debug('%s %s' % (verb, url))
         r = self.requester.request(verb, url, **request_kwargs)
-        if r.status_code != 200:
-            raise APIError(r.status_code)
+        self.raise_for_status(r)
         return r.json()
