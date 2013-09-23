@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from .resource import Resource, SimpleResource
 
 
@@ -6,8 +8,7 @@ class Neighbourhood(Resource):
     A policing neighbourhood.
     """
     force = None
-    _officers = None
-    _events = None
+    _resource_cache = {}
     _boundary = None
     _crimes = None
     fields = ['contact_details', 'name', 'links', 'description', 'url_force',
@@ -32,6 +33,24 @@ class Neighbourhood(Resource):
         def __str__(self):
             return '<Neighbourhood.Event> %s' % self.title
 
+    class Priority(SimpleResource):
+        """
+        A neighbourhood priority.
+        """
+        fields = ['neighbourhood', 'issue', 'action', 'issue_date',
+                  'action_date']
+
+        def __str__(self):
+            return '<Neighbourhood.Priority> %s' % self.issue
+
+        def _hydrate(self, data):
+            for field in ['issue-date', 'action-date']:
+                data[field.replace('-', '_')] = data[field]
+            return super(Neighbourhood.Priority, self)._hydrate(data)
+
+        def _hydrate_issue_date(self, data):
+            return datetime.strptime(data, '%Y-%m-%dT%H:%M:%S')
+
     def __str__(self):
         return '<Neighbourhood> %s' % self.id
 
@@ -41,25 +60,18 @@ class Neighbourhood(Resource):
     def _hydrate_population(self, data):
         return int(data) if data is not None else None
 
-    def _get_officers(self):
-        officers = []
-        method = '%s/%s/people' % (self.force.slug, self.id)
-        for o in self.api.service.request('GET', method):
-            o.update({
+    def _get_resource(self, cls, method):
+        if method in self._resource_cache:
+            return self._resource_cache[method]
+        objs = []
+        method = '%s/%s/%s' % (self.force.slug, self.id, method)
+        for d in self.api.service.request('GET', method):
+            d.update({
                 'neighbourhood': self,
             })
-            officers.append(self.Officer(self.api, data=o))
-        return officers
-
-    def _get_events(self):
-        events = []
-        method = '%s/%s/events' % (self.force.slug, self.id)
-        for e in self.api.service.request('GET', method):
-            e.update({
-                'neighbourhood': self,
-            })
-            events.append(self.Event(self.api, data=e))
-        return events
+            objs.append(cls(self.api, data=d))
+        self._resource_cache[method] = objs
+        return objs
 
     def _get_boundary(self):
         method = '%s/%s/boundary' % (self.force.slug, self.id)
@@ -71,15 +83,15 @@ class Neighbourhood(Resource):
 
     @property
     def officers(self):
-        if self._officers is None:
-            self._officers = self._get_officers()
-        return self._officers
+        return self._get_resource(self.Officer, 'people')
 
     @property
     def events(self):
-        if self._events is None:
-            self._events = self._get_events()
-        return self._events
+        return self._get_resource(self.Event, 'events')
+
+    @property
+    def priorities(self):
+        return self._get_resource(self.Priority, 'priorities')
 
     @property
     def boundary(self):
