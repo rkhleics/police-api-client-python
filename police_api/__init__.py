@@ -75,11 +75,13 @@ class PoliceAPI(object):
         response = self.service.request('GET', method)
         crime = Crime(self, data=response['crime'])
         crime._outcomes = []
-        for o in response['outcomes']:
-            o.update({
-                'crime': crime,
-            })
-            crime._outcomes.append(crime.Outcome(self, o))
+        outcomes = response['outcomes']
+        if outcomes is not None:
+            for o in outcomes:
+                o.update({
+                    'crime': crime,
+                })
+                crime._outcomes.append(crime.Outcome(self, o))
         return crime
 
     def get_crimes_point(self, lat, lng, date=None, category='all-crime'):
