@@ -11,7 +11,7 @@ class CrimeCategory(SimpleResource):
         return '<CrimeCategory> %s' % self.name
 
     def __eq__(self, other):
-        return self.url == other.url
+        return isinstance(other, CrimeCategory) and self.url == other.url
 
     def __hash__(self):
         return hash(self.url)
@@ -27,7 +27,7 @@ class OutcomeCategory(SimpleResource):
         return '<OutcomeCategory> %s' % self.name
 
     def __eq__(self, other):
-        return self.code == other.code
+        return isinstance(other, OutcomeCategory) and self.code == other.code
 
     def __hash__(self):
         return hash(self.code)
@@ -118,7 +118,7 @@ class Location(SimpleResource):
         return '<Location> %s' % self.id
 
     def __eq__(self, other):
-        return self.id == other.id
+        return isinstance(other, Location) and self.id == other.id
 
     def __hash__(self):
         return hash(self.id)
