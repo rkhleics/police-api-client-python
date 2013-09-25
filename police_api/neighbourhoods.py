@@ -92,7 +92,8 @@ class Neighbourhood(Resource):
 
     @property
     def priorities(self):
-        return self._get_resource(self.Priority, 'priorities')
+        return sorted(self._get_resource(self.Priority, 'priorities'),
+                      key=lambda x: x.issue_date, reverse=True)
 
     @property
     def boundary(self):
