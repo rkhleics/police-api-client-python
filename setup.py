@@ -9,6 +9,6 @@ setup(
     author='Rock Kitchen Harris',
     packages=find_packages(),
     install_requires=[
-        'requests',
+        'requests==2.0.0',
     ],
 )
