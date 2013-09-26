@@ -7,7 +7,7 @@ class Force(Resource):
     """
     slug = None
     _neighbourhoods = None
-    fields = ['description', 'telephone', 'name', 'engagement_methods']
+    fields = ['description', 'telephone', 'name', 'engagement_methods', 'url']
 
     def __str__(self):
         return '<Force> %s' % self.name
