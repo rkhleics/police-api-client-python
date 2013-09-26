@@ -49,7 +49,8 @@ class Neighbourhood(Resource):
             return super(Neighbourhood.Priority, self)._hydrate(data)
 
         def _hydrate_issue_date(self, data):
-            return datetime.strptime(data, '%Y-%m-%dT%H:%M:%S')
+            return (datetime.strptime(data, '%Y-%m-%dT%H:%M:%S') if data
+                    else None)
 
     def __str__(self):
         return '<Neighbourhood> %s' % self.id
@@ -91,7 +92,8 @@ class Neighbourhood(Resource):
 
     @property
     def priorities(self):
-        return self._get_resource(self.Priority, 'priorities')
+        return sorted(self._get_resource(self.Priority, 'priorities'),
+                      key=lambda x: x.issue_date, reverse=True)
 
     @property
     def boundary(self):
