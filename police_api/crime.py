@@ -33,7 +33,20 @@ class OutcomeCategory(SimpleResource):
         return hash(self.code)
 
 
-class Crime(SimpleResource):
+class NoLocationCrime(SimpleResource):
+    """
+    A crime with no location.
+    """
+    fields = ['id', 'context', 'month']
+
+    def _hydrate_category(self, url):
+        return self.api.get_crime_category(url, date=self.month)
+
+    def __str__(self):
+        return '<NoLocationCrime> %s' % self.id
+
+
+class Crime(NoLocationCrime):
     """
     A crime.
     """
@@ -76,9 +89,6 @@ class Crime(SimpleResource):
 
     def _hydrate_location(self, data):
         return Location(self.api, data=data)
-
-    def _hydrate_category(self, url):
-        return self.api.get_crime_category(url, date=self.month)
 
     def _hydrate_outcome_status(self, data):
         if data:

@@ -1,4 +1,4 @@
-from .crime import Crime, CrimeCategory
+from .crime import NoLocationCrime, Crime, CrimeCategory
 from .forces import Force
 from .neighbourhoods import Neighbourhood
 from .service import BaseService, APIError
@@ -122,4 +122,22 @@ class PoliceAPI(object):
             kwargs['date'] = date
         for c in self.service.request('GET', 'crimes-at-location', **kwargs):
             crimes.append(Crime(self, data=c))
+        return crimes
+
+    def get_crimes_no_location(self, force, date=None, category='all-crime'):
+        if not isinstance(force, Force):
+            force = Force(self, slug=force)
+
+        if isinstance(category, CrimeCategory):
+            category = category.url
+
+        kwargs = {
+            'force': force.slug,
+            'category': category,
+        }
+        crimes = []
+        if date is not None:
+            kwargs['date'] = date
+        for c in self.service.request('GET', 'crimes-no-location', **kwargs):
+            crimes.append(NoLocationCrime(self, data=c))
         return crimes
