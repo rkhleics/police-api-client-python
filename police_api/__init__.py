@@ -84,10 +84,10 @@ class PoliceAPI(object):
                 crime._outcomes.append(crime.Outcome(self, o))
         return crime
 
-    def get_crimes_point(self, lat, lng, date=None, category='all-crime'):
+    def get_crimes_point(self, lat, lng, date=None, category=None):
         if isinstance(category, CrimeCategory):
             category = category.url
-        method = 'crimes-street/%s' % category
+        method = 'crimes-street/%s' % (category or 'all-crime')
         kwargs = {
             'lat': lat,
             'lng': lng,
@@ -99,10 +99,10 @@ class PoliceAPI(object):
             crimes.append(Crime(self, data=c))
         return crimes
 
-    def get_crimes_area(self, points, date=None, category='all-crime'):
+    def get_crimes_area(self, points, date=None, category=None):
         if isinstance(category, CrimeCategory):
             category = category.url
-        method = 'crimes-street/%s' % category
+        method = 'crimes-street/%s' % (category or 'all-crime')
         kwargs = {
             'poly': encode_polygon(points),
         }
@@ -124,7 +124,7 @@ class PoliceAPI(object):
             crimes.append(Crime(self, data=c))
         return crimes
 
-    def get_crimes_no_location(self, force, date=None, category='all-crime'):
+    def get_crimes_no_location(self, force, date=None, category=None):
         if not isinstance(force, Force):
             force = Force(self, slug=force)
 
@@ -133,7 +133,7 @@ class PoliceAPI(object):
 
         kwargs = {
             'force': force.slug,
-            'category': category,
+            'category': category or 'all-crime',
         }
         crimes = []
         if date is not None:

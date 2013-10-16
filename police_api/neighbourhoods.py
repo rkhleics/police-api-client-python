@@ -48,9 +48,13 @@ class Neighbourhood(Resource):
                 data[field.replace('-', '_')] = data[field]
             return super(Neighbourhood.Priority, self)._hydrate(data)
 
+        def __hydrate_date(self, data):
+            return datetime.strptime(data, '%Y-%m-%dT%H:%M:%S')
+
         def _hydrate_issue_date(self, data):
-            return (datetime.strptime(data, '%Y-%m-%dT%H:%M:%S') if data
-                    else None)
+            return self.__hydrate_date(data) if data else None
+
+        _hydrate_action_date = _hydrate_issue_date
 
     def __str__(self):
         return '<Neighbourhood> %s' % self.id

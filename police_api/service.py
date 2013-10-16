@@ -42,6 +42,7 @@ class BaseService(object):
             request_kwargs['data'] = kwargs
         url = self.config['base_url'] + method
         logger.debug('%s %s' % (verb, url))
+        print url, request_kwargs.get('data')
         r = self.requester.request(verb, url, **request_kwargs)
         self.raise_for_status(r)
         return r.json()
