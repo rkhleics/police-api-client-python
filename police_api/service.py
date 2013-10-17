@@ -8,6 +8,8 @@ logger = logging.getLogger(__name__)
 class APIError(Exception):
     pass
 
+class InvalidCategoryException(Exception):
+        pass
 
 class BaseService(object):
 
