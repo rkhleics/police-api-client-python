@@ -27,10 +27,10 @@ class OutcomeCategory(SimpleResource):
         return '<OutcomeCategory> %s' % self.name
 
     def __eq__(self, other):
-        return isinstance(other, OutcomeCategory) and self.code == other.code
+        return isinstance(other, OutcomeCategory) and self.name == other.name
 
     def __hash__(self):
-        return hash(self.code)
+        return hash(self.name)
 
 
 class NoLocationCrime(SimpleResource):
