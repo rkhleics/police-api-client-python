@@ -36,7 +36,7 @@ class BaseService(object):
     def request(self, verb, method, **kwargs):
         verb = verb.upper()
         request_kwargs = {
-            'timeout': self.config.get('timeout', 20),
+            'timeout': self.config.get('timeout', 30),
         }
         if verb == 'GET':
             request_kwargs['params'] = kwargs
