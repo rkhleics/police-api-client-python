@@ -33,6 +33,9 @@ class Neighbourhood(Resource):
         def __str__(self):
             return '<Neighbourhood.Event> %s' % self.title
 
+        def _hydrate_start_date(self, data):
+            return datetime.strptime(data, '%Y-%m-%dT%H:%M:%S')
+
     class Priority(SimpleResource):
         """
         A neighbourhood priority.
