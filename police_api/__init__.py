@@ -1,7 +1,8 @@
 from .crime import NoLocationCrime, Crime, CrimeCategory
+from .exceptions import InvalidCategoryException
 from .forces import Force
 from .neighbourhoods import Neighbourhood
-from .service import BaseService, APIError, InvalidCategoryException
+from .service import BaseService, APIError
 from .utils import encode_polygon
 
 
@@ -72,8 +73,7 @@ class PoliceAPI(object):
             return self._get_crime_categories(date=date)[url]
         except KeyError:
             raise InvalidCategoryException(
-                    'Category %s not found for %s' % (url, date))
-
+                'Category %s not found for %s' % (url, date))
 
     def get_crime(self, persistent_id):
         method = 'outcomes-for-crime/%s' % persistent_id
