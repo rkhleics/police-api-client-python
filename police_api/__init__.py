@@ -38,9 +38,10 @@ class PoliceAPI(object):
         return Neighbourhood(self, force=force, id=id, **attrs)
 
     def locate_neighbourhood(self, lat, lng):
-        method = 'locate-neighbourhood?q=%s,%s' % (lat, lng)
+        method = 'locate-neighbourhood'
+        q = '%s,%s' % (lat, lng)
         try:
-            result = self.service.request('GET', method)
+            result = self.service.request('GET', method, q=q)
             return self.get_neighbourhood(result['force'],
                                           result['neighbourhood'])
         except APIError:
