@@ -46,5 +46,6 @@ class BaseService(object):
         url = self.config['base_url'] + method
         logger.debug('%s %s' % (verb, url))
         r = self.get_session().request(verb, url, **request_kwargs)
+        r.connection.close()
         self.raise_for_status(r)
         return r.json()
