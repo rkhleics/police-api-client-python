@@ -8,20 +8,25 @@ logger = logging.getLogger(__name__)
 
 
 class BaseService(object):
+    session = None
 
     def __init__(self, api, **config):
         self.api = api
-        self.requester = requests.session()
         self.config = {
             'base_url': 'http://data.police.uk/api/',
         }
         self.config.update(config)
-        self.set_credentials(self.config.get('username'),
-                             self.config.get('password'))
 
-    def set_credentials(self, username, password):
-        if username and password:
-            self.requester.auth = (username, password)
+    def get_session(self):
+        if self.session is None:
+            self.session = requests.session()
+            self.session.auth = (self.config.get('username'),
+                                 self.config.get('password'))
+        return self.session
+
+    def __del__(self):
+        if self.session is not None:
+            self.session.close()
 
     def raise_for_status(self, request):
         try:
@@ -40,6 +45,6 @@ class BaseService(object):
             request_kwargs['data'] = kwargs
         url = self.config['base_url'] + method
         logger.debug('%s %s' % (verb, url))
-        r = self.requester.request(verb, url, **request_kwargs)
+        r = self.get_session().request(verb, url, **request_kwargs)
         self.raise_for_status(r)
         return r.json()
