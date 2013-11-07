@@ -1,23 +1,20 @@
-class HydrationMixin(object):
-
-    def _hydrate(self, data):
-        for field in self.fields:
-            hydrate_field = getattr(self, '_hydrate_%s' % field, lambda x: x)
-            setattr(self, field, hydrate_field(data.get(field)))
-
-
-class SimpleResource(HydrationMixin):
+class SimpleResource(object):
 
     def __init__(self, api, data={}):
         self.api = api
         if data:
             self._hydrate(data)
 
+    def _hydrate(self, data):
+        for field in self.fields:
+            hydrate_field = getattr(self, '_hydrate_%s' % field, lambda x: x)
+            setattr(self, field, hydrate_field(data.get(field)))
+
     def __repr__(self):
         return self.__str__()
 
 
-class Resource(SimpleResource, HydrationMixin):
+class Resource(SimpleResource):
     _requested = False
     api_method = None
     fields = []
