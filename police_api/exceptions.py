@@ -14,6 +14,9 @@ class APIError(BaseException, HTTPError):
         self.message = getattr(http_error, 'message', None)
         self.response = getattr(http_error, 'response', None)
 
+    def __str__(self):
+        return self.message or '<unknown error code>'
+
 
 class InvalidCategoryException(BaseException):
     """
