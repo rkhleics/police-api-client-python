@@ -3,9 +3,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='Police API',
+    name='police_api',
     version='0.1',
-    description='Python client library for the Police.uk API',
+    description='Python client library for the Police API',
     author='Rock Kitchen Harris',
     packages=find_packages(),
     install_requires=[
