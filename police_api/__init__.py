@@ -69,12 +69,12 @@ class PoliceAPI(object):
         return sorted(self._get_crime_categories(date=date).values(),
                       key=lambda c: c.name)
 
-    def get_crime_category(self, url, date=None):
+    def get_crime_category(self, id, date=None):
         try:
-            return self._get_crime_categories(date=date)[url]
+            return self._get_crime_categories(date=date)[id]
         except KeyError:
             raise InvalidCategoryException(
-                'Category %s not found for %s' % (url, date))
+                'Category %s not found for %s' % (id, date))
 
     def get_crime(self, persistent_id):
         method = 'outcomes-for-crime/%s' % persistent_id
@@ -92,7 +92,7 @@ class PoliceAPI(object):
 
     def get_crimes_point(self, lat, lng, date=None, category=None):
         if isinstance(category, CrimeCategory):
-            category = category.url
+            category = category.id
         method = 'crimes-street/%s' % (category or 'all-crime')
         kwargs = {
             'lat': lat,
@@ -107,7 +107,7 @@ class PoliceAPI(object):
 
     def get_crimes_area(self, points, date=None, category=None):
         if isinstance(category, CrimeCategory):
-            category = category.url
+            category = category.id
         method = 'crimes-street/%s' % (category or 'all-crime')
         kwargs = {
             'poly': encode_polygon(points),
@@ -135,7 +135,7 @@ class PoliceAPI(object):
             force = Force(self, id=force)
 
         if isinstance(category, CrimeCategory):
-            category = category.url
+            category = category.id
 
         kwargs = {
             'force': force.id,

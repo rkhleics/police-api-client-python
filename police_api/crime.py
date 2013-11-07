@@ -5,23 +5,33 @@ class CrimeCategory(SimpleResource):
     """
     A crime category.
     """
-    fields = ['url', 'name']
+    fields = ['id', 'url', 'name']
+
+    def __init__(self, api, data={}):
+        if data:
+            data['id'] = data.get('url')
+        super(CrimeCategory, self).__init__(api, data=data)
 
     def __str__(self):
         return '<CrimeCategory> %s' % self.name
 
     def __eq__(self, other):
-        return isinstance(other, CrimeCategory) and self.url == other.url
+        return isinstance(other, CrimeCategory) and self.id == other.id
 
     def __hash__(self):
-        return hash(self.url)
+        return hash(self.id)
 
 
 class OutcomeCategory(SimpleResource):
     """
     An outcome category.
     """
-    fields = ['code', 'name']
+    fields = ['id', 'code', 'name']
+
+    def __init__(self, api, data={}):
+        if data:
+            data['id'] = data.get('code')
+        super(OutcomeCategory, self).__init__(api, data=data)
 
     def __str__(self):
         return '<OutcomeCategory> %s' % self.name
@@ -39,8 +49,8 @@ class NoLocationCrime(SimpleResource):
     """
     fields = ['id', 'context', 'month']
 
-    def _hydrate_category(self, url):
-        return self.api.get_crime_category(url, date=self.month)
+    def _hydrate_category(self, id):
+        return self.api.get_crime_category(id, date=self.month)
 
     def __str__(self):
         return '<NoLocationCrime> %s' % self.id
