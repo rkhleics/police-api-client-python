@@ -63,7 +63,7 @@ class Neighbourhood(Resource):
         return '<Neighbourhood> %s' % self.id
 
     def _get_api_method(self):
-        return '%s/%s' % (self.force.slug, self.id)
+        return '%s/%s' % (self.force.id, self.id)
 
     def _hydrate_population(self, data):
         return int(data) if data is not None else None
@@ -72,7 +72,7 @@ class Neighbourhood(Resource):
         if method in self._resource_cache:
             return self._resource_cache[method]
         objs = []
-        method = '%s/%s/%s' % (self.force.slug, self.id, method)
+        method = '%s/%s/%s' % (self.force.id, self.id, method)
         for d in self.api.service.request('GET', method):
             d.update({
                 'neighbourhood': self,
@@ -82,7 +82,7 @@ class Neighbourhood(Resource):
         return objs
 
     def _get_boundary(self):
-        method = '%s/%s/boundary' % (self.force.slug, self.id)
+        method = '%s/%s/boundary' % (self.force.id, self.id)
         points = self.api.service.request('GET', method)
         return [(float(p['latitude']), float(p['longitude'])) for p in points]
 

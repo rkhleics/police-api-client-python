@@ -15,25 +15,25 @@ class PoliceAPI(object):
     def get_forces(self):
         forces = []
         for f in self.service.request('GET', 'forces'):
-            forces.append(Force(self, slug=f['id'], name=f['name']))
+            forces.append(Force(self, id=f['id'], name=f['name']))
         return forces
 
-    def get_force(self, slug, **attrs):
-        return Force(self, slug=slug, **attrs)
+    def get_force(self, id, **attrs):
+        return Force(self, id=id, **attrs)
 
     def get_neighbourhoods(self, force):
         if not isinstance(force, Force):
-            force = Force(self, slug=force)
+            force = Force(self, id=force)
 
         neighbourhoods = []
-        for n in self.service.request('GET', '%s/neighbourhoods' % force.slug):
+        for n in self.service.request('GET', '%s/neighbourhoods' % force.id):
             neighbourhoods.append(
                 Neighbourhood(self, force=force, id=n['id'], name=n['name']))
         return sorted(neighbourhoods, key=lambda n: n.name)
 
     def get_neighbourhood(self, force, id, **attrs):
         if not isinstance(force, Force):
-            force = Force(self, slug=force, **attrs)
+            force = Force(self, id=force, **attrs)
 
         return Neighbourhood(self, force=force, id=id, **attrs)
 
@@ -132,13 +132,13 @@ class PoliceAPI(object):
 
     def get_crimes_no_location(self, force, date=None, category=None):
         if not isinstance(force, Force):
-            force = Force(self, slug=force)
+            force = Force(self, id=force)
 
         if isinstance(category, CrimeCategory):
             category = category.url
 
         kwargs = {
-            'force': force.slug,
+            'force': force.id,
             'category': category or 'all-crime',
         }
         crimes = []
