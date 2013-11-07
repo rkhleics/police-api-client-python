@@ -74,7 +74,7 @@ class Crime(NoLocationCrime):
     def _get_outcomes(self):
         outcomes = []
         method = 'outcomes-for-crime/%s' % self.persistent_id
-        for o in self.api.request('GET', method)['outcomes']:
+        for o in self.api.service.request('GET', method)['outcomes']:
             o.update({
                 'crime': self,
             })
