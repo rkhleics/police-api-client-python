@@ -2,9 +2,11 @@
 
 from setuptools import setup, find_packages
 
+import police_api
+
 setup(
-    name='police_api',
-    version='0.1',
+    name='police-api-client',
+    version=police_api.__version__,
     description='Python client library for the Police API',
     author='Rock Kitchen Harris',
     packages=find_packages(),

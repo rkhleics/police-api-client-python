@@ -5,6 +5,8 @@ from .neighbourhoods import Neighbourhood
 from .service import BaseService, APIError
 from .utils import encode_polygon
 
+__version__ = '0.2'
+
 
 class PoliceAPI(object):
 

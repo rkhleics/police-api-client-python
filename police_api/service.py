@@ -3,7 +3,6 @@ import requests
 
 from .exceptions import APIError
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -11,9 +10,11 @@ class BaseService(object):
     session = None
 
     def __init__(self, api, **config):
+        from police_api import __version__
         self.api = api
         self.config = {
             'base_url': 'http://data.police.uk/api/',
+            'user_agent': 'police-api-client-python/%s' % __version__,
         }
         self.config.update(config)
 
@@ -37,6 +38,9 @@ class BaseService(object):
     def request(self, verb, method, **kwargs):
         verb = verb.upper()
         request_kwargs = {
+            'headers': {
+                'User-Agent': self.config['user_agent'],
+            },
             'timeout': self.config.get('timeout', 30),
         }
         if verb == 'GET':
