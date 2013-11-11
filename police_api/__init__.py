@@ -4,8 +4,7 @@ from .forces import Force
 from .neighbourhoods import Neighbourhood
 from .service import BaseService, APIError
 from .utils import encode_polygon
-
-__version__ = '0.2'
+from .version import __version__  # NOQA
 
 
 class PoliceAPI(object):

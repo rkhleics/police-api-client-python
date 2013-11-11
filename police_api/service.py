@@ -2,6 +2,7 @@ import logging
 import requests
 
 from .exceptions import APIError
+from .version import __version__
 
 logger = logging.getLogger(__name__)
 
@@ -10,7 +11,6 @@ class BaseService(object):
     session = None
 
     def __init__(self, api, **config):
-        from police_api import __version__
         self.api = api
         self.config = {
             'base_url': 'http://data.police.uk/api/',
