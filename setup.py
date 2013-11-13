@@ -14,6 +14,7 @@ setup(
     url='https://github.com/rkhleics/police-api-client-python',
     download_url='https://github.com/rkhleics/police-api-client-python/downloads',
     packages=find_packages(),
+    include_package_data=True,
     install_requires=[
         'requests==2.0.0',
     ],
