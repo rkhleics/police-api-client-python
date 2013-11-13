@@ -1,13 +1,12 @@
 police-api-client-python
 ========================
 
-This is an unofficial Python client for the [Police
-API](http://data.police.uk/docs/).
+This is an unofficial Python client for the `Police API`_.
 
 Installation
 ------------
 
-Install the Police API client with ``pip``:
+Install the Police API client with ``pip``::
 
     pip install police_api
 
@@ -16,7 +15,7 @@ Usage
 
 The Police API doesn't require authentication, so no setup is required.
 
-Retrieving information about police forces and neighbourhoods is simple:
+Retrieving information about police forces and neighbourhoods is simple::
 
     >>> from police_api import PoliceAPI
     >>> api = PoliceAPI()
@@ -30,7 +29,7 @@ Retrieving information about police forces and neighbourhoods is simple:
     >>> city_centre.contact_details
     {u'email': u'central.lpu@leicestershire.pnn.police.uk', u'telephone': u'101', u'address': u'74 Belgrave Gate\n, Leicester, LE1 3GG'}
 
-Getting crimes is easy, too:
+Getting crimes is easy, too::
 
     >>> api.get_latest_date()
     2013-09
@@ -38,3 +37,5 @@ Getting crimes is easy, too:
     [<Crime> 26926242, ..., <Crime> 26925710]
     >>> len(api.get_crimes_area(city_centre.boundary, date='2013-08'))
     810
+
+.. _Police API: http://data.police.uk/docs/
