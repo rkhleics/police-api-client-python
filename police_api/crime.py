@@ -108,10 +108,11 @@ class Crime(NoLocationCrime):
             return self.Outcome(self.api, data)
 
     def _hydrate(self, data):
-        data['location'].update({
-            'type': data['location_type'],
-            'subtype': data['location_subtype'],
-        })
+        if data['location']:
+            data['location'].update({
+                'type': data['location_type'],
+                'subtype': data['location_subtype'],
+            })
         return super(Crime, self)._hydrate(data)
 
     def __str__(self):
