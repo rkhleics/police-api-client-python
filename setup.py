@@ -2,7 +2,8 @@
 
 from setuptools import setup, find_packages
 
-execfile('police_api/version.py')
+with open('police_api/version.py') as f:
+    exec(f.read())
 
 setup(
     name='police-api-client',
