@@ -23,8 +23,7 @@ class BaseService(object):
         except requests.models.HTTPError as e:
             raise APIError(e)
 
-    def request(self, verb, method, **kwargs):
-        verb = verb.upper()
+    def _make_request(self, verb, url, params={}):
         request_kwargs = {
             'headers': {
                 'User-Agent': self.config['user_agent'],
@@ -35,11 +34,14 @@ class BaseService(object):
             request_kwargs['auth'] = (self.config.get('username', ''),
                                       self.config.get('password', ''))
         if verb == 'GET':
-            request_kwargs['params'] = kwargs
+            request_kwargs['params'] = params
         else:
-            request_kwargs['data'] = kwargs
-        url = self.config['base_url'] + method
+            request_kwargs['data'] = params
         logger.debug('%s %s' % (verb, url))
         r = requests.request(verb, url, **request_kwargs)
         self.raise_for_status(r)
         return r.json()
+
+    def request(self, verb, method, **kwargs):
+        url = self.config['base_url'] + method
+        return self._make_request(verb.upper(), url, kwargs)
