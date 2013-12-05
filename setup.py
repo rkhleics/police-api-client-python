@@ -20,7 +20,7 @@ setup(
         'nose',
     ],
     install_requires=[
-        'requests==2.0.0',
+        'requests',
         'responses',
     ],
 )
