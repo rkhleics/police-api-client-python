@@ -226,8 +226,8 @@ class TestNeighbourhood(PoliceAPITestCase):
         ]
         responses.add(
             responses.GET,
-            ('http://data.police.uk/api/test-force/test-neighbourhood/'
-             'priorities'),
+            'http://data.police.uk/api/test-force/test-neighbourhood/'
+            'priorities',
             body=json.dumps(priorities), content_type='application/json')
         neighbourhood = self.api.get_neighbourhood(
             'test-force', 'test-neighbourhood')
@@ -269,3 +269,27 @@ class TestNeighbourhood(PoliceAPITestCase):
             (52.6229371188, -1.1429732023),
             (52.6220381746, -1.1424250637),
         ])
+
+
+class TestLocateNeighbourhood(PoliceAPITestCase):
+
+    def test_locate_neighbourhood_not_found(self):
+        responses.add(responses.GET,
+                      'http://data.police.uk/api/locate-neighbourhood',
+                      status=404, content_type='application/json')
+        neighbourhood = self.api.locate_neighbourhood(52.5, -0.05)
+        self.assertEqual(neighbourhood, None)
+
+    def test_locate_neighbourhood_found(self):
+        result = {
+            'force': 'leicestershire',
+            'neighbourhood': 'C04'
+        }
+        responses.add(responses.GET,
+                      'http://data.police.uk/api/locate-neighbourhood',
+                      body=json.dumps(result), content_type='application/json')
+        neighbourhood = self.api.locate_neighbourhood(52.5, -0.05)
+        self.assertEqual(neighbourhood.id, 'C04')
+        self.assertEqual(neighbourhood.force.id, 'leicestershire')
+        self.assertEqual(neighbourhood,
+                         self.api.get_neighbourhood('leicestershire', 'C04'))
