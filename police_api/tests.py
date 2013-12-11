@@ -293,3 +293,31 @@ class TestLocateNeighbourhood(PoliceAPITestCase):
         self.assertEqual(neighbourhood.force.id, 'leicestershire')
         self.assertEqual(neighbourhood,
                          self.api.get_neighbourhood('leicestershire', 'C04'))
+
+
+class TestDates(PoliceAPITestCase):
+
+    def test_get_dates(self):
+        dates = [
+            {'date': '2013-10'},
+            {'date': '2013-09'},
+            {'date': '2013-08'},
+        ]
+        responses.add(responses.GET,
+                      'http://data.police.uk/api/crimes-street-dates',
+                      body=json.dumps(dates), content_type='application/json')
+        crime_dates = self.api.get_dates()
+        self.assertEqual(len(crime_dates), 3)
+        self.assertEqual(crime_dates, ['2013-10', '2013-09', '2013-08'])
+
+    def test_get_latest_date(self):
+        dates = [
+            {'date': '2013-10'},
+            {'date': '2013-09'},
+            {'date': '2013-08'},
+        ]
+        responses.add(responses.GET,
+                      'http://data.police.uk/api/crimes-street-dates',
+                      body=json.dumps(dates), content_type='application/json')
+        latest_date = self.api.get_latest_date()
+        self.assertEqual(latest_date, '2013-10')
