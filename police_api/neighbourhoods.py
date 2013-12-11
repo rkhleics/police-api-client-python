@@ -62,6 +62,12 @@ class Neighbourhood(Resource):
     def __str__(self):
         return '<Neighbourhood> %s' % self.id
 
+    def __eq__(self, other):
+        return isinstance(other, Neighbourhood) and self.id == other.id
+
+    def __hash__(self):
+        return hash(self.id)
+
     def _get_api_method(self):
         return '%s/%s' % (self.force.id, self.id)
 
