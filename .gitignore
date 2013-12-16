@@ -29,6 +29,9 @@ nosetests.xml
 # Translations
 *.mo
 
+# Documentation
+docs/_build
+
 # Mr Developer
 .mr.developer.cfg
 .project
