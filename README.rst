@@ -1,14 +1,14 @@
 Police API Client (Python)
 ==========================
 
-An unofficial Python client for the `Police API`_.
+A Python client for the `Police API`_.
 
 Installation
 ------------
 
 Install the Police API client with ``pip``::
 
-    pip install police_api
+    pip install police-api-client
 
 Usage
 -----
