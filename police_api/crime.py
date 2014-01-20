@@ -129,8 +129,8 @@ class Location(SimpleResource):
         super(Location, self).__init__(*args, **kwargs)
 
         # the 'street' dictionary contains the location's id and name
-        self.id = self.street['id']
-        self.name = self.street['name']
+        self.id = getattr(self, 'street', {}).get('id')
+        self.name = getattr(self, 'street', {}).get('name')
 
     def is_btp(self):
         return self.type == 'BTP'
