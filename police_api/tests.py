@@ -69,6 +69,24 @@ class TestForce(PoliceAPITestCase):
         for key, val in attributes.items():
             self.assertEqual(getattr(force, key), val)
 
+    def test_force_senior_officers(self):
+        people = [
+            {
+                'name': 'Test Officer',
+                'rank': 'Chief Constable',
+                'bio': 'A test officer',
+            },
+        ]
+        responses.add(
+            responses.GET,
+            'http://data.police.uk/api/forces/test-force/people',
+            body=json.dumps(people), content_type='application/json')
+        force = self.api.get_force(id='test-force')
+        self.assertEqual(len(force.senior_officers), 1)
+        self.assertEqual(force.senior_officers[0].name, 'Test Officer')
+        self.assertEqual(force.senior_officers[0].rank, 'Chief Constable')
+        self.assertEqual(force.senior_officers[0].bio, 'A test officer')
+
     def test_force_neighbourhoods_empty(self):
         responses.add(responses.GET,
                       'http://data.police.uk/api/test-force/neighbourhoods',
