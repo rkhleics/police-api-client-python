@@ -1,5 +1,5 @@
-Police API Client (Python)
-==========================
+Police API Client (Python) |travis_badge|
+=========================================
 
 A Python client for the `Police API`_.
 
@@ -54,3 +54,5 @@ For more advanced usage, see the documentation_.
 
 .. _Police API: http://data.police.uk/docs/
 .. _documentation: http://police-api-client-python.readthedocs.org
+
+.. |travis_badge| image:: https://api.travis-ci.org/rkhleics/police-api-client-python.png
