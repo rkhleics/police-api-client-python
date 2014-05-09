@@ -22,7 +22,7 @@ The data is updated monthly, and each data set is represented by a date string,
 in the format ``YYYY-MM``. For example::
 
     >>> from police_api import PoliceAPI
-    >>> api = PoliceAPI(username='weroc42', password='abc123')
+    >>> api = PoliceAPI()
     >>> api.get_dates()
     [u'2013-10', u'2013-09', u'2013-08', ..., u'2010-12']
     >>> api.get_latest_date()
@@ -130,7 +130,7 @@ Priorities
 ^^^^^^^^^^
 
 Policing teams set priorities to deal with in their neighbourhoods, which are
-represented by an *issue**, and an *action* to be taken::
+represented by an *issue*, and an *action* to be taken::
 
     >>> neighbourhood.priorities
     [<Neighbourhood.Priority> <p>To address the issues of people begging next to cash machines in Market Street and surrounding area.</p>, ..., <Neighbourhood.Priority> <p>To reduce street drinking and associated anti-social behaviour on Conduit Street and London Road between 10am and 6pm each day.</p>]
