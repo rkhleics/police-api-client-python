@@ -7,6 +7,15 @@ built to power the new Police.uk_ website.
 View the README_ for installation instructions and quick-start examples.
 
 
+Contents
+---------
+
+.. toctree::
+    :maxdepth: 2
+
+    reference/index
+
+
 Configuration
 -------------
 
@@ -96,15 +105,6 @@ represented by an *issue*, and an *action* to be taken::
 
     >>> neighbourhood.priorities
     [<Neighbourhood.Priority> <p>To address the issues of people begging next to cash machines in Market Street and surrounding area.</p>, ..., <Neighbourhood.Priority> <p>To reduce street drinking and associated anti-social behaviour on Conduit Street and London Road between 10am and 6pm each day.</p>]
-
-Reference
----------
-
-.. toctree::
-    :maxdepth: 2
-
-    forces
-    neighbourhoods
 
 
 .. _Police API: http://data.police.uk/docs/

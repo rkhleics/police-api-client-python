@@ -1,6 +1,10 @@
 Forces
 ======
 
+.. toctree::
+
+    senior_officers
+
 .. currentmodule:: police_api.forces
 
 .. class:: Force(api, preload=False, **attrs)
@@ -14,7 +18,7 @@ Forces
         >>> api = PoliceAPI()
         >>> force = Force(api, id='leicestershire')
         >>> force.name
-        >>> 'Leicestershire'
+        'Leicestershire'
 
     :param PoliceAPI api: The instance of ``PoliceAPI`` that is currently being
                           used.
@@ -62,6 +66,34 @@ Forces
         A ``list`` of ``dict``, containing the keys ``url``, ``type``,
         ``description``, and ``title``.
 
+        .. doctest::
+
+            >>> pprint(force.engagement_methods)
+            [{u'description': None,
+              u'title': u'facebook',
+              u'type': u'facebook',
+              u'url': u'http://www.facebook.com/leicspolice'},
+             {u'description': None,
+              u'title': u'twitter',
+              u'type': u'twitter',
+              u'url': u'http://www.twitter.com/leicspolice'},
+             {u'description': None,
+              u'title': u'youtube',
+              u'type': u'youtube',
+              u'url': u'http://www.youtube.com/leicspolice'},
+             {u'description': None,
+              u'title': u'rss',
+              u'type': u'rss',
+              u'url': u'http://www.leics.police.uk/feeds/news/'},
+             {u'description': None,
+              u'title': u'telephone',
+              u'type': u'telephone',
+              u'url': u''},
+             {u'description': None,
+              u'title': u'flickr',
+              u'type': u'flickr',
+              u'url': u'http://www.flickr.com/photos/leicspolice-property'}]
+
     .. attribute:: neighbourhoods
 
         :type: list
@@ -74,43 +106,3 @@ Forces
         :type: list
 
         A ``list`` of ``Force.SeniorOfficer`` objects.
-
-
-.. class:: Force.SeniorOfficer(api, data={})
-
-    A senior police officer.
-
-    :param PoliceAPI api: The instance of ``PoliceAPI`` that is currently being
-                          used.
-    :param dict data: The attributes that will be copied to this instance.
-
-    .. attribute:: force
-
-        :type: str
-
-        The force's identifier (a slugified version of the name).
-        fields = ['force', 'name', 'rank', 'contact_details', 'bio']
-
-    .. attribute:: name
-
-        :type: str
-
-        The officer's name.
-
-    .. attribute:: rank
-
-        :type: str
-
-        The officer's rank.
-
-    .. attribute:: bio
-
-        :type: str
-
-        The officer's biography.
-
-    .. attribute:: contact_details
-
-        :type: list
-
-        A ``list`` of ``dict``, containing methods of contacting the officer.

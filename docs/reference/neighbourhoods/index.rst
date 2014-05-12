@@ -1,6 +1,12 @@
 Neighbourhoods
 ==============
 
+.. toctree::
+
+    events
+    officers
+    priorities
+
 .. currentmodule:: police_api.neighbourhoods
 
 .. class:: Neighbourhood(api, preload=False, **attrs)
@@ -25,7 +31,7 @@ Neighbourhoods
         >>> force = Force(api, id='leicestershire')
         >>> neighbourhood = Neighbourhood(api, force=force, id='C04')
         >>> neighbourhood.name
-        >>> 'City Centre Neighbourhood'
+        'City Centre Neighbourhood'
 
     .. attribute:: id
 
@@ -67,7 +73,7 @@ Neighbourhoods
         .. doctest::
 
             >>> neighbourhood.centre
-            >>> {"latitude": "52.6268", "longitude": "-1.12621"}
+            {"latitude": "52.6268", "longitude": "-1.12621"}
 
     .. attribute:: links
 
@@ -77,8 +83,13 @@ Neighbourhoods
 
         .. doctest::
 
-            >>> neighbourhood.links
-            >>> [{"title": "Leicester City Council", "url": "http://www.leicester.gov.uk/", "description": null}]
+            >>> pprint(neighbourhood.links)
+            [{u'description': None,
+              u'title': u'Leicester City Council',
+              u'url': u'http://www.leicester.gov.uk/'},
+             {u'description': None,
+              u'title': u'Beaumont Leys LPU',
+              u'url': u'http://leicspolice.wordpress.com/category/lpu-blogs/beaumont-leys/'}]
 
     .. attribute:: locations
 
@@ -88,8 +99,14 @@ Neighbourhoods
 
         .. doctest::
 
-            >>> neighbourhood.locations
-            >>> [{"name": "Mansfield House", "longitude": null, "postcode": "LE1 3GG", "address": "74 Belgrave Gate\n, Leicester", "latitude": null, "type": "station", "description": null}]
+            >>> pprint(neighbourhood.locations)
+            [{u'address': u'2 Beaumont Way\n, Leicester',
+              u'description': None,
+              u'latitude': None,
+              u'longitude': None,
+              u'name': u'Beaumont Leys',
+              u'postcode': u'LE4 1DS',
+              u'type': u'station'}]
 
     .. attribute:: contact_details
 
@@ -99,5 +116,42 @@ Neighbourhoods
 
         .. doctest::
 
-            >>> neighbourhood.contact_details
-            >>> {"twitter": "www.twitter.com/leicesterpolice", "facebook": "http://www.facebook.com/campuscops", "telephone": "101", "email": "central.lpu@leicestershire.pnn.police.uk"}
+            >>> pprint(neighbourhood.contact_details)
+            {u'email': u'beaumont.lpu@leicestershire.pnn.police.uk',
+             u'facebook': u'http://www.facebook.com/leicestercitypolice',
+             u'telephone': u'101',
+             u'twitter': u'http://www.twitter.com/LPAbbey'}
+
+    .. attribute:: officers
+
+        :type: list
+
+        A ``list`` of ``Neighbourhood.Officer`` objects.
+
+    .. attribute:: events
+
+        :type: list
+
+        A ``list`` of ``Neighbourhood.Event`` objects.
+
+    .. attribute:: priorities
+
+        :type: list
+
+        A ``list`` of ``Neighbourhood.Priority`` objects.
+
+    .. attribute:: boundary
+
+        :type: list
+
+        A ``list`` of ``(lat, lng)`` coordinates representing the perimeter of
+        this neighbourhood's boundary.
+
+        .. doctest::
+
+            >>> pprint(neighbourhood.boundary)
+            [(52.6235790036, -1.1433951806),
+             (52.6235759765, -1.1432002292),
+             ...
+             (52.6241719477, -1.143313233),
+             (52.6235790036, -1.1433951806)]
