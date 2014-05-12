@@ -13,6 +13,7 @@ Contents
 .. toctree::
     :maxdepth: 2
 
+    index
     reference/index
 
 
@@ -105,6 +106,48 @@ represented by an *issue*, and an *action* to be taken::
 
     >>> neighbourhood.priorities
     [<Neighbourhood.Priority> <p>To address the issues of people begging next to cash machines in Market Street and surrounding area.</p>, ..., <Neighbourhood.Priority> <p>To reduce street drinking and associated anti-social behaviour on Conduit Street and London Road between 10am and 6pm each day.</p>]
+
+
+Crime & Outcomes
+----------------
+
+To get crimes within a particular neighbourhood, use the boundary::
+
+    >>> pprint(api.get_crimes_area(neighbourhood.boundary))
+    [<Crime> 30412621,
+     <Crime> 30412622,
+     <Crime> 30409577,
+     <Crime> 30411516,
+     ...
+     <Crime> 30410475,
+     <Crime> 30412775,
+     <Crime> 30411518,
+     <Crime> 30412182]
+
+Crimes contain the date, category and location::
+
+    >>> crime = api.get_crime('ddf4c172d29569ab0cb667a346bcffad18f54a9bc3e0ae9694d2daf6738f068b')
+    >>> crime
+    <Crime> 20325597
+    >>> crime.month
+    u'2013-01'
+    >>> crime.category
+    <CrimeCategory> Shoplifting
+    >>> crime.location
+    <Location> 701166
+    >>> crime.location.name, crime.location.latitude, crime.location.longitude
+    (u'On or near Constance Close', u'51.737837', u'-2.235178')
+
+Each non-ASB crime has a list of outcomes, which represents the timeline of
+events since the crime was reported::
+
+    >>> pprint(crime.outcomes)
+    [<Crime.Outcome> Under investigation,
+     <Crime.Outcome> Suspect charged,
+     <Crime.Outcome> Awaiting court outcome,
+     <Crime.Outcome> Offender imprisoned]
+    >>> crime.outcomes[-1].date
+    u'2013-01'
 
 
 .. _Police API: http://data.police.uk/docs/
