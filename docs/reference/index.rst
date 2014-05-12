@@ -5,4 +5,7 @@ Reference
     :maxdepth: 2
     :glob:
 
-    */index
+    police_api
+    forces/index
+    neighbourhoods/index
+    crime/index
