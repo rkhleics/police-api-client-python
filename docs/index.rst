@@ -27,25 +27,6 @@ you can provide credentials if you have them::
     >>> api = PoliceAPI(username='weroc42', password='abc123')
 
 
-Dates
------
-
-The data is updated monthly, and each data set is represented by a date string,
-in the format ``YYYY-MM``. For example::
-
-    >>> from police_api import PoliceAPI
-    >>> api = PoliceAPI()
-    >>> api.get_dates()
-    [u'2013-10', u'2013-09', u'2013-08', ..., u'2010-12']
-    >>> api.get_latest_date()
-    u'2013-10'
-
-This can then be used to filter the crimes by date::
-
-    >>> api.get_crimes_point(52.63473, -1.137514, date='2013-08')
-    [<Crime> 26926242, ..., <Crime> 26925710]
-
-
 Forces
 ------
 
@@ -111,6 +92,14 @@ represented by an *issue*, and an *action* to be taken::
 Crime & Outcomes
 ----------------
 
+The data is updated monthly, and each data set is represented by a date string,
+in the format ``YYYY-MM``::
+
+    >>> api.get_dates()
+    [u'2014-03', u'2014-02', u'2014-01', ..., u'2010-12']
+    >>> api.get_latest_date()
+    u'2014-03'
+
 To get crimes within a particular neighbourhood, use the boundary::
 
     >>> pprint(api.get_crimes_area(neighbourhood.boundary))
@@ -123,6 +112,19 @@ To get crimes within a particular neighbourhood, use the boundary::
      <Crime> 30412775,
      <Crime> 30411518,
      <Crime> 30412182]
+
+To fetch data for months other than the latest one, use the date string::
+
+    >>> pprint(api.get_crimes_area(neighbourhood.boundary, date='2013-10'))
+    [<Crime> 27566767,
+     <Crime> 27573059,
+     <Crime> 27570299,
+     <Crime> 27570923,
+     ...
+     <Crime> 27569847,
+     <Crime> 27570896,
+     <Crime> 27571396,
+     <Crime> 27570916]
 
 Crimes contain the date, category and location::
 
