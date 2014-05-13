@@ -95,16 +95,11 @@ class TestForce(PoliceAPITestCase):
         self.assertEqual(len(force.neighbourhoods), 0)
 
     def test_force_neighbourhoods_single(self):
-        neighbourhoods = [
-            {
-                'id': 'test-neighbourhood',
-                'name': 'Test Neighbourhood',
-            },
-        ]
         neighbourhood = {
             'id': 'test-neighbourhood',
             'name': 'Test Neighbourhood',
         }
+        neighbourhoods = [neighbourhood]
         responses.add(
             responses.GET,
             'http://data.police.uk/api/test-force/neighbourhoods',
