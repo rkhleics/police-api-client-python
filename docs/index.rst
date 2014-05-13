@@ -92,15 +92,16 @@ represented by an *issue*, and an *action* to be taken::
 Crime & Outcomes
 ----------------
 
-The data is updated monthly, and each data set is represented by a date string,
-in the format ``YYYY-MM``::
+The crime data is updated monthly, and each data set is represented by a date
+string, in the format ``YYYY-MM``::
 
     >>> api.get_dates()
     [u'2014-03', u'2014-02', u'2014-01', ..., u'2010-12']
     >>> api.get_latest_date()
     u'2014-03'
 
-To get crimes within a particular neighbourhood, use the boundary::
+To get crimes within a particular neighbourhood, call ``get_crimes_area`` with
+that neighbourhood's boundary::
 
     >>> pprint(api.get_crimes_area(neighbourhood.boundary))
     [<Crime> 30412621,
@@ -113,7 +114,8 @@ To get crimes within a particular neighbourhood, use the boundary::
      <Crime> 30411518,
      <Crime> 30412182]
 
-To fetch data for months other than the latest one, use the date string::
+To fetch data for months other than the latest one, use a date string like the
+ones returned by ``get_dates``::
 
     >>> pprint(api.get_crimes_area(neighbourhood.boundary, date='2013-10'))
     [<Crime> 27566767,
@@ -140,8 +142,8 @@ Crimes contain the date, category and location::
     >>> crime.location.name, crime.location.latitude, crime.location.longitude
     (u'On or near Constance Close', u'51.737837', u'-2.235178')
 
-Each non-ASB crime has a list of outcomes, which represents the timeline of
-events since the crime was reported::
+Crimes have a list of outcomes, which represents the timeline of events since
+the crime was reported::
 
     >>> pprint(crime.outcomes)
     [<Crime.Outcome> Under investigation,
@@ -150,6 +152,12 @@ events since the crime was reported::
      <Crime.Outcome> Offender imprisoned]
     >>> crime.outcomes[-1].date
     u'2013-01'
+
+Crime objects representing Anti-Social Behaviour will not have outcomes::
+
+   >>> asb = api.get_crimes_area(neighbourhood.boundary, category='anti-social-behaviour')[0]
+   >>> asb.outcomes
+   []
 
 
 .. _Police API: http://data.police.uk/docs/
