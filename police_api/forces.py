@@ -1,3 +1,4 @@
+from .neighbourhoods import Neighbourhood
 from .resource import Resource, SimpleResource
 
 
@@ -37,6 +38,10 @@ class Force(Resource):
             objs.append(cls(self.api, data=d))
         self._resource_cache[method] = objs
         return objs
+
+    def get_neighbourhood(self, neighbourhood_id, **attrs):
+        return Neighbourhood(self.api, force=self, id=neighbourhood_id,
+                             **attrs)
 
     @property
     def senior_officers(self):

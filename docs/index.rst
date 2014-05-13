@@ -53,12 +53,15 @@ Forces are broken down into *Neighbourhood Policing Teams*::
 If you know the ID of a particular neighbourhood, then you can use
 ``get_neighbourhood()``::
 
-    >>> neighbourhood = api.get_neighbourhood(force, 'C02')
+    >>> neighbourhood = api.get_neighbourhood('leicestershire', 'C02')
     >>> neighbourhood
     <Neighbourhood> C02
 
-.. note:: You can use either a force ID or a Force object with
-          ``get_neighbourhood()``.
+Or, if you already have a Force object::
+
+    >>> neighbourhood = force.get_neighbourhood('C02')
+    >>> neighbourhood
+    <Neighbourhood> C02
 
 
 Officers
