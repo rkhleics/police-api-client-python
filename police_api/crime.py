@@ -93,7 +93,11 @@ class Crime(NoLocationCrime):
                 'crime': self,
             })
             outcomes.append(self.Outcome(self.api, o))
-        return outcomes
+
+        if outcomes is None:
+            return []
+        else:
+            return outcomes
 
     @property
     def outcomes(self):
