@@ -20,11 +20,11 @@ Contents
 Configuration
 -------------
 
-The API doesn't require any configuration or authentication to get going, but
-you can provide credentials if you have them::
+The API doesn't require any configuration or authentication, so all you need to
+do to get going is make a PoliceAPI instance::
 
     >>> from police_api import PoliceAPI
-    >>> api = PoliceAPI(username='weroc42', password='abc123')
+    >>> api = PoliceAPI()
 
 
 Forces
