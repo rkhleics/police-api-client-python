@@ -26,6 +26,9 @@ do to get going is make a PoliceAPI instance::
     >>> from police_api import PoliceAPI
     >>> api = PoliceAPI()
 
+Fore available methods and configuration parameters, see the
+:doc:`reference/police_api` reference.
+
 
 Forces
 ------
@@ -40,6 +43,9 @@ If you know the ID of a particular force, then you can use ``get_force()``::
     >>> force = api.get_force('leicestershire')
     >>> force
     <Force> Leicestershire Police
+
+Fore available attributes and methods, see the :doc:`reference/forces/index`
+reference.
 
 
 Neighbourhoods
@@ -63,6 +69,9 @@ Or, if you already have a Force object::
     >>> neighbourhood
     <Neighbourhood> C02
 
+Fore available attributes and methods, see the
+:doc:`reference/neighbourhoods/index` reference.
+
 
 Officers
 ^^^^^^^^
@@ -73,6 +82,9 @@ available::
     >>> neighbourhood.officers
     [<Neighbourhood.Officer> Michelle Zakoscielny, ..., <Neighbourhood.Officer> Richard Jones]
 
+Fore available attributes and methods, see the
+:doc:`reference/neighbourhoods/officers` reference.
+
 
 Events
 ^^^^^^
@@ -82,6 +94,10 @@ Neighbourhood-level events (beat meetings, surgeries, etc.) are available::
     >>> neighbourhood.events
     [<Neighbourhood.Event> Stocking Farm beat surgery, ..., <Neighbourhood.Event> Stocking Farm beat surgery]
 
+Fore available attributes and methods, see the
+:doc:`reference/neighbourhoods/events` reference.
+
+
 Priorities
 ^^^^^^^^^^
 
@@ -90,6 +106,9 @@ represented by an *issue*, and an *action* to be taken::
 
     >>> neighbourhood.priorities
     [<Neighbourhood.Priority> <p>To address the issues of people begging next to cash machines in Market Street and surrounding area.</p>, ..., <Neighbourhood.Priority> <p>To reduce street drinking and associated anti-social behaviour on Conduit Street and London Road between 10am and 6pm each day.</p>]
+
+Fore available attributes and methods, see the
+:doc:`reference/neighbourhoods/priorities` reference.
 
 
 Crime & Outcomes
@@ -161,6 +180,9 @@ Crime objects representing Anti-Social Behaviour will not have outcomes::
    >>> asb = api.get_crimes_area(neighbourhood.boundary, category='anti-social-behaviour')[0]
    >>> asb.outcomes
    []
+
+Fore available attributes and methods, see the :doc:`reference/crime/index`
+reference.
 
 
 .. _Police API: http://data.police.uk/docs/
