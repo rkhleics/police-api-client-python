@@ -7,8 +7,7 @@ Crime Categories
 
     A crime category. Uses the crime-categories_ API call.
 
-    :param PoliceAPI api: The instance of ``PoliceAPI`` that is currently being
-                          used.
+    :param PoliceAPI api: The instance of ``PoliceAPI`` to use.
     :param dict data: The attributes that will be copied to this instance.
 
     .. attribute:: id

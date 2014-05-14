@@ -13,8 +13,7 @@ Neighbourhoods
 
     A Neighbourhood Policing Team. Uses the neighbourhood_ API call.
 
-    :param PoliceAPI api: The instance of ``PoliceAPI`` that is currently being
-                          used.
+    :param PoliceAPI api: The instance of ``PoliceAPI`` to use.
     :param bool preload: If ``True``, attributes are loaded from the API on
                          instantiation rather than waiting for a property to
                          be accessed.
