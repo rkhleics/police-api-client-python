@@ -1,7 +1,8 @@
 Police API Client (Python) |travis_badge|
 =========================================
 
-A Python client for the `Police API`_.
+A Python client for the `Police API`_. Supports Python 2.6, 2.7, 3.2, 3.3 and
+3.4.
 
 Installation
 ------------
