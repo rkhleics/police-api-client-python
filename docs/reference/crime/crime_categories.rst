@@ -5,7 +5,7 @@ Crime Categories
 
 .. class:: CrimeCategory(api, data={})
 
-    A crime category.
+    A crime category. Uses the crime-categories_ API call.
 
     :param PoliceAPI api: The instance of ``PoliceAPI`` that is currently being
                           used.
@@ -22,3 +22,5 @@ Crime Categories
         :type: str
 
         The name of this crime category.
+
+.. _crime-categories: http://data.police.uk/docs/method/crime-categories/

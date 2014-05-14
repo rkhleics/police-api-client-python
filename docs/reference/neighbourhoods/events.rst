@@ -5,7 +5,8 @@ Events
 
 .. class:: Neighbourhood.Event(api, data={})
 
-    A neighbourhood event (e.g. a beat meating or surgery).
+    A neighbourhood event (e.g. a beat meating or surgery). Uses the
+    neighbourhood-events_ API call.
 
     :param PoliceAPI api: The instance of ``PoliceAPI`` that is currently being
                           used.
@@ -80,3 +81,5 @@ Events
             >>> event = neighbourhood.events[0]
             >>> event.start_date
             datetime.datetime(2014, 7, 14, 9, 30)
+
+.. _neighbourhood-events: http://data.police.uk/docs/method/neighbourhood-events/

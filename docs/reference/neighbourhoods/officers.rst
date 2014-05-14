@@ -5,7 +5,7 @@ Officers
 
 .. class:: Neighbourhood.Officer(api, data={})
 
-    A police officer.
+    A police officer. Uses the neighbourhood-team_ API call.
 
     :param PoliceAPI api: The instance of ``PoliceAPI`` that is currently being
                           used.
@@ -48,3 +48,5 @@ Officers
             >>> pprint(officer.contact_details)
             {u'telephone': u'01788 853851',
              u'website': u'http://www.safer-neighbourhoods.co.uk/your-neighbourhood/rugby-district/rugby-rural-south/email-the-team'}
+
+.. _neighbourhood-team: http://data.police.uk/docs/method/neighbourhood-team/

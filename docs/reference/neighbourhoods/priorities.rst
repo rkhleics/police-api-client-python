@@ -6,7 +6,8 @@ Priorities
 .. class:: Neighbourhood.Priority(api, data={})
 
     A neighbourhood priority (i.e. an issue raised by the community and
-    a corresponding policing action to address this).
+    a corresponding policing action to address this). Uses the
+    neighbourhood-priorities_ API call.
 
     :param PoliceAPI api: The instance of ``PoliceAPI`` that is currently being
                           used.
@@ -41,3 +42,5 @@ Priorities
         :type: datetime.datetime
 
         The date that the action was implemented.
+
+.. _neighbourhood-priorities: http://data.police.uk/docs/method/neighbourhood-priorities/

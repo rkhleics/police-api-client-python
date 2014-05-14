@@ -11,7 +11,7 @@ Neighbourhoods
 
 .. class:: Neighbourhood(api, preload=False, **attrs)
 
-    A Neighbourhood Policing Team.
+    A Neighbourhood Policing Team. Uses the neighbourhood_ API call.
 
     :param PoliceAPI api: The instance of ``PoliceAPI`` that is currently being
                           used.
@@ -155,3 +155,5 @@ Neighbourhoods
              ...
              (52.6241719477, -1.143313233),
              (52.6235790036, -1.1433951806)]
+
+.. _neighbourhood: http://data.police.uk/docs/method/neighbourhood/

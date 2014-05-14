@@ -9,7 +9,8 @@ Forces
 
 .. class:: Force(api, preload=False, **attrs)
 
-    A police force.
+    A police force in England, Wales or Northern Ireland. Uses the force_ API
+    call.
 
     .. doctest::
 
@@ -106,3 +107,5 @@ Forces
         :type: list
 
         A ``list`` of ``Force.SeniorOfficer`` objects.
+
+.. _force: http://data.police.uk/docs/method/force/

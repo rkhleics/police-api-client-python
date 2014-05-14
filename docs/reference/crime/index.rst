@@ -12,7 +12,7 @@ Crime
 
 .. class:: Crime(api, data={})
 
-    An individual crime.
+    An individual crime. Uses the outcomes-for-crime_ API call.
 
     :param PoliceAPI api: The instance of ``PoliceAPI`` that is currently being
                           used.
@@ -67,3 +67,5 @@ Crime
         :type: list
 
         A ``list`` of ``Outcome`` objects for this crime.
+
+.. _outcomes-for-crime: http://data.police.uk/docs/method/outcomes-for-crime/

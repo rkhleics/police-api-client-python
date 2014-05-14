@@ -5,7 +5,7 @@ Senior Officers
 
 .. class:: Force.SeniorOfficer(api, data={})
 
-    A senior police officer.
+    A senior police officer. Uses the senior-officers_ API call.
 
     :param PoliceAPI api: The instance of ``PoliceAPI`` that is currently being
                           used.
@@ -46,3 +46,5 @@ Senior Officers
             >>> officer = force.senior_officers[0]
             >>> pprint(officer.contact_details)
             {u'twitter': u'http://www.twitter.com/CCLeicsPolice'}
+
+.. _senior-officers: http://data.police.uk/docs/method/senior-officers/
