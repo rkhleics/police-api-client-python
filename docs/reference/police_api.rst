@@ -10,25 +10,13 @@ Police API
         >>> from police_api import PoliceAPI
         >>> api = PoliceAPI(user_agent='cops-and-robbers/9.9.9', timeout=60)
 
-    :param config: Configuration parameters to use for this instance of the
-                   Police API. None are required, but the supported ones are as
-                   follows:
-
-                   * ``base_url``
-                      - The base endpoint URL for the Police API
-                      - Default: ``'http://data.police.uk/api/'``
-                   * ``user_agent``
-                      - The user agent string to use
-                      - Default: ``'police-api-client-python/<version>'``
-                   * ``timeout``
-                      - The timeout in seconds
-                      - Default: ``30``
-                   * ``username``
-                      - The username to authenticate with
-                      - Default: ``None``
-                   * ``password``
-                      - The password to authenticate with
-                      - Default: ``None``
+    :param base_url: The base endpoint URL for the Police API. Default:
+                     ``'http://data.police.uk/api/'``
+    :param user_agent: The user agent string to use. Default:
+                       ``'police-api-client-python/<version>'``
+    :param timeout: The timeout in seconds. Default: ``30``
+    :param username: The username to authenticate with. Default: ``None``
+    :param password: The password to authenticate with. Default: ``None``
 
     .. method:: get_forces()
 
