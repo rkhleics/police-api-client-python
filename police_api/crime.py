@@ -83,13 +83,21 @@ class Crime(NoLocationCrime):
 
     def _get_outcomes(self):
         outcomes = []
+
+        if not self.persistent_id:
+            return outcomes
+
         method = 'outcomes-for-crime/%s' % self.persistent_id
         for o in self.api.service.request('GET', method)['outcomes']:
             o.update({
                 'crime': self,
             })
             outcomes.append(self.Outcome(self.api, o))
-        return outcomes
+
+        if outcomes is None:
+            return []
+        else:
+            return outcomes
 
     @property
     def outcomes(self):

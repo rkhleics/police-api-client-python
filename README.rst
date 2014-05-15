@@ -1,7 +1,8 @@
 Police API Client (Python) |travis_badge|
 =========================================
 
-A Python client for the `Police API`_.
+A Python client for the `Police API`_. Supports Python 2.6, 2.7, 3.2, 3.3 and
+3.4.
 
 Installation
 ------------
@@ -55,4 +56,5 @@ For more advanced usage, see the documentation_.
 .. _Police API: http://data.police.uk/docs/
 .. _documentation: http://police-api-client-python.readthedocs.org
 
-.. |travis_badge| image:: https://api.travis-ci.org/rkhleics/police-api-client-python.png
+.. |travis_badge| image:: https://api.travis-ci.org/rkhleics/police-api-client-python.svg
+                       :target: https://travis-ci.org/rkhleics/police-api-client-python

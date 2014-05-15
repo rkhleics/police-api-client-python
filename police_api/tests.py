@@ -95,20 +95,27 @@ class TestForce(PoliceAPITestCase):
         self.assertEqual(len(force.neighbourhoods), 0)
 
     def test_force_neighbourhoods_single(self):
-        neighbourhoods = [
-            {
-                'id': 'test-neighbourhood',
-                'name': 'Test Neighbourhood',
-            },
-        ]
-        responses.add(responses.GET,
-                      'http://data.police.uk/api/test-force/neighbourhoods',
-                      body=json.dumps(neighbourhoods),
-                      content_type='application/json')
+        neighbourhood = {
+            'id': 'test-neighbourhood',
+            'name': 'Test Neighbourhood',
+        }
+        neighbourhoods = [neighbourhood]
+        responses.add(
+            responses.GET,
+            'http://data.police.uk/api/test-force/neighbourhoods',
+            body=json.dumps(neighbourhoods),
+            content_type='application/json')
+        responses.add(
+            responses.GET,
+            'http://data.police.uk/api/test-force/test-neighbourhood',
+            body=json.dumps(neighbourhood),
+            content_type='application/json')
         force = self.api.get_force(id='test-force')
         self.assertEqual(len(force.neighbourhoods), 1)
         self.assertEqual(force.neighbourhoods[0].id, 'test-neighbourhood')
         self.assertEqual(force.neighbourhoods[0].name, 'Test Neighbourhood')
+        self.assertEqual(force.get_neighbourhood('test-neighbourhood').name,
+                         'Test Neighbourhood')
 
 
 class TestNeighbourhood(PoliceAPITestCase):
