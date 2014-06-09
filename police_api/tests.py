@@ -4,7 +4,7 @@ import responses
 from unittest import TestCase
 
 from . import PoliceAPI
-from exceptions import NeighbourhoodsNeighbourhoodException
+from .exceptions import NeighbourhoodsNeighbourhoodException
 
 
 class PoliceAPITestCase(TestCase):
