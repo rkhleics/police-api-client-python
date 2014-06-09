@@ -39,5 +39,6 @@ class NeighbourhoodsNeighbourhoodException(InvalidAPICallException):
      "http://data.police.uk/docs/method/neighbourhood/.")
 
     def __init__(self, *args, **kwargs):
-        super(NeighbourhoodsNeighbourhoodException, self
-              ).__init__(self.__doc__, *args, **kwargs)
+        super(
+            NeighbourhoodsNeighbourhoodException, self
+        ).__init__(self.__doc__, *args, **kwargs)
