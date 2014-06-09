@@ -62,9 +62,7 @@ class Neighbourhood(Resource):
 
     def __init__(self, *args, **kwargs):
         super(Neighbourhood, self).__init__(*args, **kwargs)
-
-        if self.id == 'neighbourhoods':
-            raise NeighbourhoodsNeighbourhoodException()
+        self._assert_id_not_neighbourhoods()
 
     def __str__(self):
         return '<Neighbourhood> %s' % self.id
@@ -75,7 +73,13 @@ class Neighbourhood(Resource):
     def __hash__(self):
         return hash(self.id)
 
+    def _assert_id_not_neighbourhoods(self):
+        # Have a look at the docstring of NeighbourhoodsNeighbourhoodException.
+        if self.id == 'neighbourhoods':
+            raise NeighbourhoodsNeighbourhoodException()
+
     def _get_api_method(self):
+        self._assert_id_not_neighbourhoods()
         return '%s/%s' % (self.force.id, self.id)
 
     def _hydrate_population(self, data):

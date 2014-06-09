@@ -307,10 +307,28 @@ class TestNeighbourhood(PoliceAPITestCase):
             lambda: self.api.get_neighbourhood('test-force', 'neighbourhoods')
         )
 
+        responses.add(
+            responses.GET,
+            'http://data.police.uk/api/forces/test-force',
+            body='{}', content_type='application/json')
+
+        self.assertRaises(
+            NeighbourhoodsNeighbourhoodException,
+            lambda: self.api.get_neighbourhood('test-force', 'neighbourhoods',
+                                               preload=True)
+        )
+
         self.assertRaises(
             NeighbourhoodsNeighbourhoodException,
             lambda: self.api.get_force('test-force').get_neighbourhood(
                 'neighbourhoods')
+        )
+
+        floating_neighbourhood = self.api.get_neighbourhood('test', 'test')
+        floating_neighbourhood.id = 'neighbourhoods'
+        self.assertRaises(
+            NeighbourhoodsNeighbourhoodException,
+            lambda: floating_neighbourhood.name
         )
 
 
