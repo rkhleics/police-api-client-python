@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from .exceptions import NeighbourhoodsNeighbourhoodException
 from .resource import Resource, SimpleResource
 
 
@@ -58,6 +59,12 @@ class Neighbourhood(Resource):
             return self.__hydrate_date(data) if data else None
 
         _hydrate_action_date = _hydrate_issue_date
+
+    def __init__(self, *args, **kwargs):
+        super(Neighbourhood, self).__init__(*args, **kwargs)
+
+        if self.id == 'neighbourhoods':
+            raise NeighbourhoodsNeighbourhoodException()
 
     def __str__(self):
         return '<Neighbourhood> %s' % self.id

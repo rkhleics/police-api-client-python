@@ -23,4 +23,22 @@ class InvalidCategoryException(BaseException):
     """
     The requested category was not found, or is unavailable for the given date.
     """
-    pass
+
+
+class InvalidAPICallException(BaseException):
+    """
+    This is an API call that, due to limitations of the API, would be
+    impossible to make.
+    """
+
+
+class NeighbourhoodsNeighbourhoodException(InvalidAPICallException):
+    ("It is impossible to get information about the 'neighbourhoods' "
+     "neighbourhood due to a conflict between "
+     "http://data.police.uk/docs/method/neighbourhoods/ and "
+     "http://data.police.uk/docs/method/neighbourhood/.")
+
+    def __init__(self, *args, **kwargs):
+        super(
+            NeighbourhoodsNeighbourhoodException, self
+        ).__init__(self.__doc__, *args, **kwargs)
