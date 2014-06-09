@@ -4,6 +4,7 @@ import responses
 from unittest import TestCase
 
 from . import PoliceAPI
+from exceptions import NeighbourhoodsNeighbourhoodException
 
 
 class PoliceAPITestCase(TestCase):
@@ -294,6 +295,23 @@ class TestNeighbourhood(PoliceAPITestCase):
             (52.6229371188, -1.1429732023),
             (52.6220381746, -1.1424250637),
         ])
+
+    def test_neighbourhood_neighbourhoods(self):
+        """
+        Ensure attempting to get a resource relating the the 'neighbourhoods'
+        neighbourhood raises an NeighbourhoodsNeighbourhoodException exception.
+        """
+
+        self.assertRaises(
+            NeighbourhoodsNeighbourhoodException,
+            lambda: self.api.get_neighbourhood('test-force', 'neighbourhoods')
+        )
+
+        self.assertRaises(
+            NeighbourhoodsNeighbourhoodException,
+            lambda: self.api.get_force('test-force').get_neighbourhood(
+                'neighbourhoods')
+        )
 
 
 class TestLocateNeighbourhood(PoliceAPITestCase):
