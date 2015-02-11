@@ -1,4 +1,9 @@
 class SimpleResource(object):
+    """
+    An object that is entirely represented by a discrete part of a larger API
+    call, meaning we either don't know it exists or we know everything there is
+    to know about it.
+    """
 
     def __init__(self, api, data={}):
         self.api = api
@@ -15,6 +20,15 @@ class SimpleResource(object):
 
 
 class Resource(SimpleResource):
+    """
+    An object that has a dedicated API call that can be made to retreive all
+    pertinent information. Can be initialised and used with a subset of that
+    information, and the dedicated call will not be made until information not
+    surfaced anywhere but that call is required. For example, a subset of force
+    information exists in the /forces call, but a lot more information is
+    available at /forces/[force].
+    """
+
     _requested = False
     api_method = None
     fields = []
