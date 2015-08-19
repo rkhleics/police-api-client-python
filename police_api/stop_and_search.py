@@ -6,7 +6,7 @@ from .crime import Location
 
 class Stop(SimpleResource):
     """
-    A Stop and Search incident.
+    A stop and search incident.
     """
 
     fields = [
