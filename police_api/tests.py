@@ -382,3 +382,63 @@ class TestDates(PoliceAPITestCase):
                       body=json.dumps(dates), content_type='application/json')
         latest_date = self.api.get_latest_date()
         self.assertEqual(latest_date, '2013-10')
+
+
+class TestStops(PoliceAPITestCase):
+    def test_get_stops(self):
+        result = [{
+            'removal_of_more_than_outer_clothing': None,
+            'datetime': '2015-04-01T17:30:00',
+            'legislation': 'Misuse of Drugs Act 1971 (section 23)',
+            'outcome': 'Suspect summonsed to court',
+            'location': {
+                'latitude': '51.284396',
+                'longitude': '-2.495092',
+                'street': {
+                    'id': 535912,
+                    'name': 'On or near Longvernal'
+                }
+            },
+            'operation': None,
+            'self_defined_ethnicity': 'White - White British (W1)',
+            'type': 'Person and Vehicle search',
+            'age_range': '25-34',
+            'gender': 'Male',
+            'operation_name': None,
+            'outcome_linked_to_object_of_search': None,
+            'object_of_search': 'Controlled drugs',
+            'involved_person': True,
+            'officer_defined_ethnicity': 'White'
+        }, {
+            'location': {
+                'latitude': '51.456751',
+                'longitude': '-2.589860',
+                'street': {
+                    'name': 'On or near Shopping Area',
+                    'id': 543525
+                }
+            },
+            'self_defined_ethnicity': 'White - White British (W1)',
+            'operation': None,
+            'type': 'Person search',
+            'age_range': '10-17',
+            'gender': 'Female',
+            'operation_name': None,
+            'outcome_linked_to_object_of_search': None,
+            'object_of_search': 'Stolen goods',
+            'involved_person': True,
+            'officer_defined_ethnicity': 'White',
+            'removal_of_more_than_outer_clothing': None,
+            'legislation': 'Police and Criminal Evidence Act 1984 (section 1)',
+            'datetime': '2015-04-01T18:00:00',
+            'outcome': 'Local resolution'
+        }]
+
+        responses.add(responses.GET,
+                      'http://data.police.uk/api/stops-force',
+                      body=json.dumps(result), content_type='application/json')
+
+        self.assertEqual([
+            s.age_range for s in
+            self.api.get_stops_force('metropolitan')
+        ], [d['age_range'] for d in result])

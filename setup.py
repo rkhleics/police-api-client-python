@@ -22,6 +22,7 @@ setup(
         'nose',
     ],
     install_requires=[
+        'python-dateutil',
         'requests',
         'responses',
     ],

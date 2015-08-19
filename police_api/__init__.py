@@ -3,6 +3,7 @@ from .exceptions import InvalidCategoryException
 from .forces import Force
 from .neighbourhoods import Neighbourhood
 from .service import BaseService, APIError
+from .stop_and_search import Stop
 from .utils import encode_polygon
 from .version import __version__  # NOQA
 
@@ -148,3 +149,29 @@ class PoliceAPI(object):
         for c in self.service.request('GET', 'crimes-no-location', **kwargs):
             crimes.append(NoLocationCrime(self, data=c))
         return crimes
+
+    def get_stops_within_area(self, points, **kwargs):
+        return [Stop(self, data) for data in self.service.request(
+            'POST', 'stops-street', poly=encode_polygon(points), **kwargs)]
+
+    def get_stops_within_radius(self, point, **kwargs):
+        return [Stop(self, data) for data in self.service.request(
+            'POST', 'stops-street', lat=point[0], lng=point[1], **kwargs)]
+
+    def get_stops_location(self, location_id, **kwargs):
+        return [Stop(self, data) for data in self.service.request(
+            'POST', 'stops-at-location', location_id=location_id, **kwargs)]
+
+    def get_stops_no_location(self, force, **kwargs):
+        if not isinstance(force, Force):
+            force = Force(self, id=force)
+
+        return [Stop(self, data) for data in self.service.request(
+            'GET', 'stops-no-location', force=force.id, **kwargs)]
+
+    def get_stops_force(self, force, date=None, **kwargs):
+        if not isinstance(force, Force):
+            force = Force(self, id=force)
+
+        return [Stop(self, data) for data in self.service.request(
+            'GET', 'stops-force', force=force.id, date=date, **kwargs)]
