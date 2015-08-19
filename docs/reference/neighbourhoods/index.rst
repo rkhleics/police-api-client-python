@@ -155,4 +155,4 @@ Neighbourhoods
              (52.6241719477, -1.143313233),
              (52.6235790036, -1.1433951806)]
 
-.. _neighbourhood: http://data.police.uk/docs/method/neighbourhood/
+.. _neighbourhood: https://data.police.uk/docs/method/neighbourhood/

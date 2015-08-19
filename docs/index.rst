@@ -185,6 +185,6 @@ Fore available attributes and methods, see the :doc:`reference/crime/index`
 reference.
 
 
-.. _Police API: http://data.police.uk/docs/
-.. _Police.uk: http://www.police.uk/
+.. _Police API: https://data.police.uk/docs/
+.. _Police.uk: https://www.police.uk/
 .. _README: https://github.com/rkhleics/police-api-client-python/

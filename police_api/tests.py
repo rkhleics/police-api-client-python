@@ -20,13 +20,13 @@ class PoliceAPITestCase(TestCase):
 class TestForces(PoliceAPITestCase):
 
     def test_forces_empty(self):
-        responses.add(responses.GET, 'http://data.police.uk/api/forces',
+        responses.add(responses.GET, 'https://data.police.uk/api/forces',
                       body='[]', content_type='application/json')
         forces = self.api.get_forces()
         self.assertEqual(len(forces), 0)
 
     def test_forces_single(self):
-        responses.add(responses.GET, 'http://data.police.uk/api/forces',
+        responses.add(responses.GET, 'https://data.police.uk/api/forces',
                       body='[{"id": "test-force", "name": "Test Force"}]',
                       content_type='application/json')
         forces = self.api.get_forces()
@@ -61,7 +61,7 @@ class TestForce(PoliceAPITestCase):
             ],
         }
         responses.add(responses.GET,
-                      'http://data.police.uk/api/forces/test-force',
+                      'https://data.police.uk/api/forces/test-force',
                       body=json.dumps(attributes),
                       content_type='application/json')
 
@@ -80,7 +80,7 @@ class TestForce(PoliceAPITestCase):
         ]
         responses.add(
             responses.GET,
-            'http://data.police.uk/api/forces/test-force/people',
+            'https://data.police.uk/api/forces/test-force/people',
             body=json.dumps(people), content_type='application/json')
         force = self.api.get_force(id='test-force')
         self.assertEqual(len(force.senior_officers), 1)
@@ -90,7 +90,7 @@ class TestForce(PoliceAPITestCase):
 
     def test_force_neighbourhoods_empty(self):
         responses.add(responses.GET,
-                      'http://data.police.uk/api/test-force/neighbourhoods',
+                      'https://data.police.uk/api/test-force/neighbourhoods',
                       body='[]', content_type='application/json')
         force = self.api.get_force(id='test-force')
         self.assertEqual(len(force.neighbourhoods), 0)
@@ -103,12 +103,12 @@ class TestForce(PoliceAPITestCase):
         neighbourhoods = [neighbourhood]
         responses.add(
             responses.GET,
-            'http://data.police.uk/api/test-force/neighbourhoods',
+            'https://data.police.uk/api/test-force/neighbourhoods',
             body=json.dumps(neighbourhoods),
             content_type='application/json')
         responses.add(
             responses.GET,
-            'http://data.police.uk/api/test-force/test-neighbourhood',
+            'https://data.police.uk/api/test-force/test-neighbourhood',
             body=json.dumps(neighbourhood),
             content_type='application/json')
         force = self.api.get_force(id='test-force')
@@ -123,7 +123,7 @@ class TestNeighbourhood(PoliceAPITestCase):
 
     def test_neighbourhood_empty(self):
         responses.add(responses.GET,
-                      'http://data.police.uk/api/test-force/neighbourhoods',
+                      'https://data.police.uk/api/test-force/neighbourhoods',
                       body='[]', content_type='application/json')
         neighbourhoods = self.api.get_neighbourhoods('test-force')
         self.assertEqual(len(neighbourhoods), 0)
@@ -136,7 +136,7 @@ class TestNeighbourhood(PoliceAPITestCase):
             },
         ]
         responses.add(responses.GET,
-                      'http://data.police.uk/api/test-force/neighbourhoods',
+                      'https://data.police.uk/api/test-force/neighbourhoods',
                       body=json.dumps(neighbourhoods),
                       content_type='application/json')
         neighbourhoods = self.api.get_neighbourhoods('test-force')
@@ -150,7 +150,7 @@ class TestNeighbourhood(PoliceAPITestCase):
         }
         responses.add(
             responses.GET,
-            'http://data.police.uk/api/test-force/test-neighbourhood',
+            'https://data.police.uk/api/test-force/test-neighbourhood',
             body=json.dumps(attributes), content_type='application/json')
         neighbourhood = self.api.get_neighbourhood(
             'test-force', 'test-neighbourhood')
@@ -167,7 +167,7 @@ class TestNeighbourhood(PoliceAPITestCase):
         ]
         responses.add(
             responses.GET,
-            'http://data.police.uk/api/test-force/test-neighbourhood/people',
+            'https://data.police.uk/api/test-force/test-neighbourhood/people',
             body=json.dumps(people), content_type='application/json')
         neighbourhood = self.api.get_neighbourhood(
             'test-force', 'test-neighbourhood')
@@ -187,7 +187,7 @@ class TestNeighbourhood(PoliceAPITestCase):
         ]
         responses.add(
             responses.GET,
-            'http://data.police.uk/api/test-force/test-neighbourhood/events',
+            'https://data.police.uk/api/test-force/test-neighbourhood/events',
             body=json.dumps(events), content_type='application/json')
         neighbourhood = self.api.get_neighbourhood(
             'test-force', 'test-neighbourhood')
@@ -212,7 +212,7 @@ class TestNeighbourhood(PoliceAPITestCase):
         ]
         responses.add(
             responses.GET,
-            ('http://data.police.uk/api/test-force/test-neighbourhood/'
+            ('https://data.police.uk/api/test-force/test-neighbourhood/'
              'priorities'),
             body=json.dumps(priorities), content_type='application/json')
         neighbourhood = self.api.get_neighbourhood(
@@ -252,7 +252,7 @@ class TestNeighbourhood(PoliceAPITestCase):
         ]
         responses.add(
             responses.GET,
-            'http://data.police.uk/api/test-force/test-neighbourhood/'
+            'https://data.police.uk/api/test-force/test-neighbourhood/'
             'priorities',
             body=json.dumps(priorities), content_type='application/json')
         neighbourhood = self.api.get_neighbourhood(
@@ -284,7 +284,8 @@ class TestNeighbourhood(PoliceAPITestCase):
         ]
         responses.add(
             responses.GET,
-            'http://data.police.uk/api/test-force/test-neighbourhood/boundary',
+            'https://data.police.uk/api/test-force/test-neighbourhood/'
+            'boundary',
             body=json.dumps(boundary), content_type='application/json')
         neighbourhood = self.api.get_neighbourhood(
             'test-force', 'test-neighbourhood')
@@ -309,7 +310,7 @@ class TestNeighbourhood(PoliceAPITestCase):
 
         responses.add(
             responses.GET,
-            'http://data.police.uk/api/forces/test-force',
+            'https://data.police.uk/api/forces/test-force',
             body='{}', content_type='application/json')
 
         self.assertRaises(
@@ -336,7 +337,7 @@ class TestLocateNeighbourhood(PoliceAPITestCase):
 
     def test_locate_neighbourhood_not_found(self):
         responses.add(responses.GET,
-                      'http://data.police.uk/api/locate-neighbourhood',
+                      'https://data.police.uk/api/locate-neighbourhood',
                       status=404, content_type='application/json')
         neighbourhood = self.api.locate_neighbourhood(52.5, -0.05)
         self.assertEqual(neighbourhood, None)
@@ -347,7 +348,7 @@ class TestLocateNeighbourhood(PoliceAPITestCase):
             'neighbourhood': 'C04'
         }
         responses.add(responses.GET,
-                      'http://data.police.uk/api/locate-neighbourhood',
+                      'https://data.police.uk/api/locate-neighbourhood',
                       body=json.dumps(result), content_type='application/json')
         neighbourhood = self.api.locate_neighbourhood(52.5, -0.05)
         self.assertEqual(neighbourhood.id, 'C04')
@@ -365,7 +366,7 @@ class TestDates(PoliceAPITestCase):
             {'date': '2013-08'},
         ]
         responses.add(responses.GET,
-                      'http://data.police.uk/api/crimes-street-dates',
+                      'https://data.police.uk/api/crimes-street-dates',
                       body=json.dumps(dates), content_type='application/json')
         crime_dates = self.api.get_dates()
         self.assertEqual(len(crime_dates), 3)
@@ -378,7 +379,7 @@ class TestDates(PoliceAPITestCase):
             {'date': '2013-08'},
         ]
         responses.add(responses.GET,
-                      'http://data.police.uk/api/crimes-street-dates',
+                      'https://data.police.uk/api/crimes-street-dates',
                       body=json.dumps(dates), content_type='application/json')
         latest_date = self.api.get_latest_date()
         self.assertEqual(latest_date, '2013-10')
@@ -435,7 +436,7 @@ class TestStops(PoliceAPITestCase):
         }]
 
         responses.add(responses.GET,
-                      'http://data.police.uk/api/stops-force',
+                      'https://data.police.uk/api/stops-force',
                       body=json.dumps(result), content_type='application/json')
 
         self.assertEqual([

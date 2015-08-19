@@ -42,4 +42,4 @@ Priorities
 
         The date that the action was implemented.
 
-.. _neighbourhood-priorities: http://data.police.uk/docs/method/neighbourhood-priorities/
+.. _neighbourhood-priorities: https://data.police.uk/docs/method/neighbourhood-priorities/

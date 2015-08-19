@@ -22,4 +22,4 @@ Crime Categories
 
         The name of this crime category.
 
-.. _crime-categories: http://data.police.uk/docs/method/crime-categories/
+.. _crime-categories: https://data.police.uk/docs/method/crime-categories/

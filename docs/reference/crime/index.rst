@@ -67,4 +67,4 @@ Crime
 
         A ``list`` of ``Outcome`` objects for this crime.
 
-.. _outcomes-for-crime: http://data.police.uk/docs/method/outcomes-for-crime/
+.. _outcomes-for-crime: https://data.police.uk/docs/method/outcomes-for-crime/

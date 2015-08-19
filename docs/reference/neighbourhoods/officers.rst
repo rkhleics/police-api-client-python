@@ -48,4 +48,4 @@ Officers
             {u'telephone': u'01788 853851',
              u'website': u'http://www.safer-neighbourhoods.co.uk/your-neighbourhood/rugby-district/rugby-rural-south/email-the-team'}
 
-.. _neighbourhood-team: http://data.police.uk/docs/method/neighbourhood-team/
+.. _neighbourhood-team: https://data.police.uk/docs/method/neighbourhood-team/

@@ -107,4 +107,4 @@ Forces
 
         A ``list`` of ``Force.SeniorOfficer`` objects.
 
-.. _force: http://data.police.uk/docs/method/force/
+.. _force: https://data.police.uk/docs/method/force/

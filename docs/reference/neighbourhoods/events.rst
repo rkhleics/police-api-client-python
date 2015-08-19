@@ -81,4 +81,4 @@ Events
             >>> event.start_date
             datetime.datetime(2014, 7, 14, 9, 30)
 
-.. _neighbourhood-events: http://data.police.uk/docs/method/neighbourhood-events/
+.. _neighbourhood-events: https://data.police.uk/docs/method/neighbourhood-events/

@@ -11,7 +11,7 @@ Police API
         >>> api = PoliceAPI(user_agent='cops-and-robbers/9.9.9', timeout=60)
 
     :param base_url: The base endpoint URL for the Police API. Default:
-                     ``'http://data.police.uk/api/'``
+                     ``'https://data.police.uk/api/'``
     :param user_agent: The user agent string to use. Default:
                        ``'police-api-client-python/<version>'``
     :param timeout: The timeout in seconds. Default: ``30``
@@ -177,14 +177,14 @@ Police API
         :return: A ``list`` of crimes which were reported in the given month,
                  by the specified force, but which don't have a location.
 
-.. _forces: http://data.police.uk/docs/method/forces/
-.. _neighbourhoods: http://data.police.uk/docs/method/neighbourhoods/
-.. _neighbourhood: http://data.police.uk/docs/method/neighbourhood/
-.. _locate-neighbourhood: http://data.police.uk/docs/method/neighbourhood-locate/
-.. _crimes-street-dates: http://data.police.uk/docs/method/crimes-street-dates/
-.. _crime-last-updated: http://data.police.uk/docs/method/crime-last-updated/
-.. _crime-categories: http://data.police.uk/docs/method/crime-categories/
-.. _outcomes-for-crime: http://data.police.uk/docs/method/outcomes-for-crime/
-.. _crime-street: http://data.police.uk/docs/method/crime-street/
-.. _crimes-at-location: http://data.police.uk/docs/method/crimes-at-location/
-.. _crimes-no-location: http://data.police.uk/docs/method/crimes-no-location/
+.. _forces: https://data.police.uk/docs/method/forces/
+.. _neighbourhoods: https//data.police.uk/docs/method/neighbourhoods/
+.. _neighbourhood: https://data.police.uk/docs/method/neighbourhood/
+.. _locate-neighbourhood: https://data.police.uk/docs/method/neighbourhood-locate/
+.. _crimes-street-dates: https://data.police.uk/docs/method/crimes-street-dates/
+.. _crime-last-updated: https://data.police.uk/docs/method/crime-last-updated/
+.. _crime-categories: https://data.police.uk/docs/method/crime-categories/
+.. _outcomes-for-crime: https://data.police.uk/docs/method/outcomes-for-crime/
+.. _crime-street: https//data.police.uk/docs/method/crime-street/
+.. _crimes-at-location: https://data.police.uk/docs/method/crimes-at-location/
+.. _crimes-no-location: https://data.police.uk/docs/method/crimes-no-location/

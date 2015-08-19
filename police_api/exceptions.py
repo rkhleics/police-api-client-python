@@ -35,8 +35,8 @@ class InvalidAPICallException(BaseException):
 class NeighbourhoodsNeighbourhoodException(InvalidAPICallException):
     ("It is impossible to get information about the 'neighbourhoods' "
      "neighbourhood due to a conflict between "
-     "http://data.police.uk/docs/method/neighbourhoods/ and "
-     "http://data.police.uk/docs/method/neighbourhood/.")
+     "https://data.police.uk/docs/method/neighbourhoods/ and "
+     "https://data.police.uk/docs/method/neighbourhood/.")
 
     def __init__(self, *args, **kwargs):
         super(

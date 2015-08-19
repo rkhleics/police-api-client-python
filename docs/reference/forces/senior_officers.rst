@@ -46,4 +46,4 @@ Senior Officers
             >>> pprint(officer.contact_details)
             {u'twitter': u'http://www.twitter.com/CCLeicsPolice'}
 
-.. _senior-officers: http://data.police.uk/docs/method/senior-officers/
+.. _senior-officers: https://data.police.uk/docs/method/senior-officers/

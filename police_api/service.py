@@ -12,7 +12,7 @@ class BaseService(object):
     def __init__(self, api, **config):
         self.api = api
         self.config = {
-            'base_url': 'http://data.police.uk/api/',
+            'base_url': 'https://data.police.uk/api/',
             'user_agent': 'police-api-client-python/%s' % __version__,
         }
         self.config.update(config)
