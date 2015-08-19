@@ -13,7 +13,9 @@ setup(
     author='Rock Kitchen Harris',
     license='MIT',
     url='https://github.com/rkhleics/police-api-client-python',
-    download_url='https://github.com/rkhleics/police-api-client-python/downloads',
+    download_url=(
+        'https://github.com/rkhleics/police-api-client-python/downloads'
+    ),
     packages=find_packages(),
     include_package_data=True,
     setup_requires=[
