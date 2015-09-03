@@ -35,8 +35,8 @@ class PoliceAPI(object):
         .. _forces: https://data.police.uk/docs/method/forces/
 
         :rtype: list
-        :return: A list of Force objects (one for each police force in England,
-                 Wales and Northern Ireland).
+        :return: A list of :class:`forces.Force` objects (one for each police
+                 force represented in the API)
         """
 
         forces = []
@@ -50,12 +50,11 @@ class PoliceAPI(object):
 
         .. _force: https://data.police.uk/docs/method/force/
 
-        :param force: The force to get neighbourhoods for (either by ID or
-                      Force object)
-        :rtype: list
-        :return: A list of Force objects (one for each police force in England,
-                 Wales and Northern Ireland).
+        :param id: The ID of the force to get information about.
+        :rtype: :class:`forces.Force`
+        :return: The appropriate :class:`forces.Force` object.
         """
+
         return Force(self, id=id, **attrs)
 
     def get_neighbourhoods(self, force):
@@ -66,11 +65,11 @@ class PoliceAPI(object):
         .. _neighbourhoods: https://data.police.uk/docs/method/neighbourhoods/
 
         :param force: The force to get neighbourhoods for (either by ID or
-                      Force object)
-        :type force: str or Force
+                      :class:`forces.Force` object)
+        :type force: str or :class:`forces.Force`
         :rtype: list
-        :return: A ``list`` of Neighbourhood objects (one for each
-                 Neighbourhood Policing Team in the given force).
+        :return: A ``list`` of :class:`neighbourhoods.Neighbourhood` objects
+                 (one for each Neighbourhood Policing Team in the given force).
         """
 
         if not isinstance(force, Force):
@@ -89,7 +88,7 @@ class PoliceAPI(object):
         .. _neighbourhood: https://data.police.uk/docs/method/neighbourhood/
 
         :param force: The force within which the neighbourhood resides (either
-                      by ID or Force object)
+                      by ID or :class:`forces.Force` object)
         :type force: str or Force
         :param str neighbourhood: The ID of the neighbourhood to fetch.
         :rtype: Neighbourhood
