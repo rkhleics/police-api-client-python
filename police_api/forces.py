@@ -12,8 +12,8 @@ class Force(Resource):
         >>> from police_api.forces import Force
         >>> api = PoliceAPI()
         >>> force = Force(api, id='leicestershire')
-        >>> force.name
-        u'Leicestershire Police'
+        >>> print(force.name)
+        Leicestershire Police
 
     :param `PoliceAPI` api: The API instance to use.
     :param bool preload: If ``True``, attributes are loaded from the API on
@@ -63,31 +63,14 @@ class Force(Resource):
         .. doctest::
 
             >>> from pprint import pprint
-            >>> pprint(force.engagement_methods)
-            [{u'description': None,
-              u'title': u'facebook',
-              u'type': u'facebook',
-              u'url': u'http://www.facebook.com/leicspolice'},
-             {u'description': None,
-              u'title': u'twitter',
-              u'type': u'twitter',
-              u'url': u'http://www.twitter.com/leicspolice'},
-             {u'description': None,
-              u'title': u'youtube',
-              u'type': u'youtube',
-              u'url': u'http://www.youtube.com/leicspolice'},
-             {u'description': None,
-              u'title': u'rss',
-              u'type': u'rss',
-              u'url': u'http://www.leics.police.uk/feeds/news/'},
-             {u'description': None,
-              u'title': u'telephone',
-              u'type': u'telephone',
-              u'url': u''},
-             {u'description': None,
-              u'title': u'flickr',
-              u'type': u'flickr',
-              u'url': u'http://www.flickr.com/photos/leicspolice-property'}]
+            >>> pprint(['{type}: {url}'.format(**method)
+            ...         for method in force.engagement_methods])
+            ['facebook: http://www.facebook.com/leicspolice',
+             'twitter: http://www.twitter.com/leicspolice',
+             'youtube: http://www.youtube.com/leicspolice',
+             'rss: http://www.leics.police.uk/feeds/news/',
+             'telephone: ',
+             'flickr: http://www.flickr.com/photos/leicspolice-property']
 
     .. attribute:: neighbourhoods
 
@@ -151,8 +134,8 @@ class Force(Resource):
                 >>> from police_api import PoliceAPI
                 >>> force = PoliceAPI().get_force('leicestershire')
                 >>> officer = force.senior_officers[0]
-                >>> print(officer.contact_details)
-                {u'twitter': u'http://www.twitter.com/CCLeicsPolice'}
+                >>> print(officer.contact_details['twitter'])
+                http://www.twitter.com/CCLeicsPolice
 
         .. _senior-officers:
             https://data.police.uk/docs/method/senior-officers/
