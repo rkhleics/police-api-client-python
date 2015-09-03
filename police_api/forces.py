@@ -100,7 +100,7 @@ class Force(Resource):
 
         .. attribute:: force
 
-            :type: Force
+            :type: :class:`Force`
 
             The police force that this officer works for.
 
