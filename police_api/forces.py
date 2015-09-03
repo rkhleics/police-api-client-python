@@ -13,7 +13,7 @@ class Force(Resource):
         >>> api = PoliceAPI()
         >>> force = Force(api, id='leicestershire')
         >>> force.name
-        'Leicestershire'
+        u'Leicestershire Police'
 
     :param `PoliceAPI` api: The API instance to use.
     :param bool preload: If ``True``, attributes are loaded from the API on
@@ -62,6 +62,7 @@ class Force(Resource):
 
         .. doctest::
 
+            >>> from pprint import pprint
             >>> pprint(force.engagement_methods)
             [{u'description': None,
               u'title': u'facebook',
@@ -147,8 +148,10 @@ class Force(Resource):
 
             .. doctest::
 
+                >>> from police_api import PoliceAPI
+                >>> force = PoliceAPI().get_force('leicestershire')
                 >>> officer = force.senior_officers[0]
-                >>> pprint(officer.contact_details)
+                >>> print(officer.contact_details)
                 {u'twitter': u'http://www.twitter.com/CCLeicsPolice'}
 
         .. _senior-officers:
