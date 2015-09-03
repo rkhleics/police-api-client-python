@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Police API Client'
-copyright = u'2013, Rock Kitchen Harris'
+copyright = u'2013-2015, Rock Kitchen Harris'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
