@@ -15,7 +15,7 @@ class Force(Resource):
         >>> print(force.name)
         Leicestershire Police
 
-    :param `PoliceAPI` api: The API instance to use.
+    :param PoliceAPI api: The API instance to use.
     :param bool preload: If ``True``, attributes are loaded from the API on
                          instantiation rather than waiting for a property to
                          be accessed.
