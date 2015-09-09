@@ -1,6 +1,9 @@
 Police API Client (Python)
 ==========================
 
+.. currentmodule:: police_api
+.. py:module:: police_api
+
 The Police API Client is an open-source client for the `Police API`_. It was
 built to power the new Police.uk_ website.
 
@@ -26,26 +29,25 @@ do to get going is make a PoliceAPI instance::
     >>> from police_api import PoliceAPI
     >>> api = PoliceAPI()
 
-Fore available methods and configuration parameters, see the
-:doc:`reference/police_api` reference.
+Fore available methods and configuration parameters, see the :class:`PoliceAPI`
+reference.
 
 
 Forces
 ------
 
-To retrieve a list of police forces, use ``get_forces()``::
+To retrieve a list of police forces, use :func:`PoliceAPI.get_forces`::
 
     >>> api.get_forces()
     [<Force> Avon and Somerset Constabulary, ..., <Force> Wiltshire Police]
 
-If you know the ID of a particular force, then you can use ``get_force()``::
+If you know the ID of a particular force, then you can use :func:`PoliceAPI.get_force`::
 
     >>> force = api.get_force('leicestershire')
     >>> force
     <Force> Leicestershire Police
 
-Fore available attributes and methods, see the :doc:`reference/forces/index`
-reference.
+Fore available attributes and methods, see the :class:`forces.Force` reference.
 
 
 Neighbourhoods
@@ -57,7 +59,7 @@ Forces are broken down into *Neighbourhood Policing Teams*::
     [<Neighbourhood> C02, <Neighbourhood> L03, ..., <Neighbourhood> L69]
 
 If you know the ID of a particular neighbourhood, then you can use
-``get_neighbourhood()``::
+:func:`PoliceAPI.get_neighbourhood`::
 
     >>> neighbourhood = api.get_neighbourhood('leicestershire', 'C02')
     >>> neighbourhood
@@ -70,7 +72,7 @@ Or, if you already have a Force object::
     <Neighbourhood> C02
 
 Fore available attributes and methods, see the
-:doc:`reference/neighbourhoods/index` reference.
+:class:`neighbourhoods.Neighbourhood` reference.
 
 
 Officers
@@ -83,7 +85,7 @@ available::
     [<Neighbourhood.Officer> Michelle Zakoscielny, ..., <Neighbourhood.Officer> Richard Jones]
 
 Fore available attributes and methods, see the
-:doc:`reference/neighbourhoods/officers` reference.
+:class:`neighbourhoods.Neighbourhood.Officer` reference.
 
 
 Events
@@ -95,7 +97,7 @@ Neighbourhood-level events (beat meetings, surgeries, etc.) are available::
     [<Neighbourhood.Event> Stocking Farm beat surgery, ..., <Neighbourhood.Event> Stocking Farm beat surgery]
 
 Fore available attributes and methods, see the
-:doc:`reference/neighbourhoods/events` reference.
+:class:`neighbourhoods.Neighbourhood.Event` reference.
 
 
 Priorities
@@ -108,7 +110,7 @@ represented by an *issue*, and an *action* to be taken::
     [<Neighbourhood.Priority> <p>To address the issues of people begging next to cash machines in Market Street and surrounding area.</p>, ..., <Neighbourhood.Priority> <p>To reduce street drinking and associated anti-social behaviour on Conduit Street and London Road between 10am and 6pm each day.</p>]
 
 Fore available attributes and methods, see the
-:doc:`reference/neighbourhoods/priorities` reference.
+:class:`neighbourhoods.Neighbourhood.Priority` reference.
 
 
 Crime & Outcomes
@@ -122,8 +124,8 @@ string, in the format ``YYYY-MM``::
     >>> api.get_latest_date()
     u'2014-03'
 
-To get crimes within a particular neighbourhood, call ``get_crimes_area`` with
-that neighbourhood's boundary::
+To get crimes within a particular neighbourhood, call
+:func:`PoliceAPI.get_crimes_area` with that neighbourhood's boundary::
 
     >>> pprint(api.get_crimes_area(neighbourhood.boundary))
     [<Crime> 30412621,
@@ -137,7 +139,7 @@ that neighbourhood's boundary::
      <Crime> 30412182]
 
 To fetch data for months other than the latest one, use a date string like the
-ones returned by ``get_dates``::
+ones returned by :func:`PoliceAPI.get_dates`::
 
     >>> pprint(api.get_crimes_area(neighbourhood.boundary, date='2013-10'))
     [<Crime> 27566767,
@@ -181,8 +183,7 @@ Crime objects representing Anti-Social Behaviour will not have outcomes::
    >>> asb.outcomes
    []
 
-Fore available attributes and methods, see the :doc:`reference/crime/index`
-reference.
+For available attributes and methods, see the :class:`crime.Crime` reference.
 
 
 .. _Police API: https://data.police.uk/docs/
