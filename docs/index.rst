@@ -10,16 +10,6 @@ built to power the new Police.uk_ website.
 View the README_ for installation instructions and quick-start examples.
 
 
-Contents
----------
-
-.. toctree::
-    :maxdepth: 2
-
-    index
-    reference/index
-
-
 Configuration
 -------------
 
