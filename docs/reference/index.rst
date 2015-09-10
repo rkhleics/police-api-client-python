@@ -6,6 +6,6 @@ Reference
     :glob:
 
     police_api
-    forces/index
-    neighbourhoods/index
-    crime/index
+    forces
+    neighbourhoods
+    crime
