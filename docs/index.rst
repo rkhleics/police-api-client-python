@@ -9,6 +9,17 @@ built to power the new Police.uk_ website.
 
 View the README_ for installation instructions and quick-start examples.
 
+Reference
+---------
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+
+   reference/police_api
+   reference/forces
+   reference/neighbourhoods
+   reference/crime
 
 Configuration
 -------------
