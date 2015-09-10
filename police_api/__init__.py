@@ -314,8 +314,8 @@ class PoliceAPI(object):
         :param date: The month in which the crimes were reported in the format
                     ``YYYY-MM`` (the latest date is used if ``None``).
         :type date: str or None
-        :return: A ``list`` of crimes which were snapped to the location with
-                 the specified ID in the given month.
+        :return: A ``list`` of :class:`Crime` objects which were snapped to the
+                 :class:`Location` with the specified ID in the given month.
         """
 
         kwargs = {
@@ -345,8 +345,9 @@ class PoliceAPI(object):
         :param category: The category of the crimes to filter by (either by ID
                          or CrimeCategory object)
         :type category: str or CrimeCategory
-        :return: A ``list`` of crimes which were reported in the given month,
-                 by the specified force, but which don't have a location.
+        :return: A ``list`` of :class:`crime.NoLocationCrime` objects which
+                 were reported in the given month, by the specified force, but
+                 which don't have a location.
         """
 
         if not isinstance(force, Force):

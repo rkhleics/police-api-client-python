@@ -15,3 +15,6 @@ Crime
 
 .. autoclass:: OutcomeCategory
    :members:
+
+.. autoclass:: NoLocationCrime
+   :members:

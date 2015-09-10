@@ -20,6 +20,7 @@ Reference
    reference/forces
    reference/neighbourhoods
    reference/crime
+   reference/stop_and_search
 
 Configuration
 -------------

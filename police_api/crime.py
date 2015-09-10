@@ -78,7 +78,10 @@ class OutcomeCategory(SimpleResource):
 
 class NoLocationCrime(SimpleResource):
     """
-    A crime with no location.
+    A crime with no location. Retrieved via the crimes-no-location_ API call.
+
+    .. _crimes-no-location:
+        https://data.police.uk/docs/method/crimes-no-location/
     """
     fields = ['id', 'context', 'month']
 
