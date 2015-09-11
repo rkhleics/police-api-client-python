@@ -31,7 +31,7 @@ do to get going is make a PoliceAPI instance::
     >>> from police_api import PoliceAPI
     >>> api = PoliceAPI()
 
-Fore available methods and configuration parameters, see the :class:`PoliceAPI`
+For available methods and configuration parameters, see the :class:`PoliceAPI`
 reference.
 
 
@@ -49,7 +49,7 @@ If you know the ID of a particular force, then you can use :func:`PoliceAPI.get_
     >>> force
     <Force> Leicestershire Police
 
-Fore available attributes and methods, see the :class:`forces.Force` reference.
+For available attributes and methods, see the :class:`forces.Force` reference.
 
 
 Neighbourhoods
@@ -73,7 +73,7 @@ Or, if you already have a Force object::
     >>> neighbourhood
     <Neighbourhood> C02
 
-Fore available attributes and methods, see the
+For available attributes and methods, see the
 :class:`neighbourhoods.Neighbourhood` reference.
 
 
@@ -86,7 +86,7 @@ available::
     >>> neighbourhood.officers
     [<Neighbourhood.Officer> Michelle Zakoscielny, ..., <Neighbourhood.Officer> Richard Jones]
 
-Fore available attributes and methods, see the
+For available attributes and methods, see the
 :class:`neighbourhoods.Neighbourhood.Officer` reference.
 
 
@@ -98,7 +98,7 @@ Neighbourhood-level events (beat meetings, surgeries, etc.) are available::
     >>> neighbourhood.events
     [<Neighbourhood.Event> Stocking Farm beat surgery, ..., <Neighbourhood.Event> Stocking Farm beat surgery]
 
-Fore available attributes and methods, see the
+For available attributes and methods, see the
 :class:`neighbourhoods.Neighbourhood.Event` reference.
 
 
@@ -111,7 +111,7 @@ represented by an *issue*, and an *action* to be taken::
     >>> neighbourhood.priorities
     [<Neighbourhood.Priority> <p>To address the issues of people begging next to cash machines in Market Street and surrounding area.</p>, ..., <Neighbourhood.Priority> <p>To reduce street drinking and associated anti-social behaviour on Conduit Street and London Road between 10am and 6pm each day.</p>]
 
-Fore available attributes and methods, see the
+For available attributes and methods, see the
 :class:`neighbourhoods.Neighbourhood.Priority` reference.
 
 
