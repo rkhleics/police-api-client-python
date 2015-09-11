@@ -135,8 +135,8 @@ class Neighbourhood(Resource):
 
         .. doctest::
 
-            >>> neighbourhood.boundary[:2]
-            [(52.6235790036, -1.1433951806), (52.6235759765, -1.1432002292)]
+            >>> neighbourhood.boundary[0]
+            (52.6235790036, -1.1433951806)
 
     .. _neighbourhood: https://data.police.uk/docs/method/neighbourhood/
     """
