@@ -8,7 +8,7 @@ class Stop(SimpleResource):
     """
     A stop and search incident. Only a few of the attributes here are
     guaranteed to be provided by forces, so take care around any ``None``
-    values you may see.
+    values you may encounter.
 
     .. doctest::
 
@@ -34,11 +34,6 @@ class Stop(SimpleResource):
 
         :type: str
         The officer's justification for conducting the search.
-
-        .. doctest::
-
-            >>> print(stops[0].object_of_search)
-            25-34
 
     .. attribute:: outcome
 
