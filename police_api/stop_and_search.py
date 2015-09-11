@@ -118,7 +118,7 @@ class Stop(SimpleResource):
             >>> print(stops[0].officer_defined_ethnicity)
             Black
 
-    .. attribute: gender
+    .. attribute:: gender
 
         :type: str
         The gender of the person stopped. It is not clear if this is as
@@ -129,7 +129,7 @@ class Stop(SimpleResource):
             >>> print(stops[0].gender)
             Male
 
-    .. attribute: datetime
+    .. attribute:: datetime
 
         :type: datetime
         When the stop was conducted. Note that if a force appears to only
@@ -141,12 +141,12 @@ class Stop(SimpleResource):
             >>> print(stops[0].datetime.isoformat())
             2015-07-01T00:05:00
 
-    .. attribute: location
+    .. attribute:: location
 
         :type: :class:`Location`
         The approximate location of the stop.
 
-    .. attribute: removal_of_more_than_outer_clothing
+    .. attribute:: removal_of_more_than_outer_clothing
 
         :type: bool
         Whether significant clothing was removed in order to carry out the
